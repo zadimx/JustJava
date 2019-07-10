@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Just Java</string>
+
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="login">Вход в систему</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="hint_title">Заголовок</string>
+    <string name="hint_text">Текст заметки</string>
+
+    <string name="title_save">Сохранить</string>
+    <string name="title_edit">Редактировать</string>
+
+    <string name="error_empty_field">Необходимо заполнить поле</string>
+    <string name="showing">Показатели</string>
+    <string name="setting">Настройки</string>
+    <string name="notifications">Уведомления</string>
+    <string name="add_device">Добавить устройство</string>
+    <string name="pass">Пароль</string>
+    <string name="nameDeviceList">Имя устройства в списке</string>
+    <string name="nameDriver">Имя водителя</string>
+    <string name="telDriver">Телефон водителя</string>
+    <string name="titleDbActivity">List devices</string>
+    <string name="delete_devices">Удалить устройства</string>
+</resources>

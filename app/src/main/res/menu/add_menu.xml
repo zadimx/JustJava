@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/showing"
+        android:icon="@drawable/ic_action_save"
+        android:title="@string/showing" />
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_action_save"
+        android:title="@string/setting" />
+
+    <item
+        android:id="@+id/notifications"
+        android:icon="@drawable/ic_action_save"
+        android:title="@string/notifications" />
+
+    <item
+        android:id="@+id/add_device"
+        android:icon="@drawable/ic_action_save"
+        android:title="@string/add_device" />
+
+    <item
+        android:id="@+id/delete_devices"
+        android:icon="@drawable/ic_action_save"
+        android:title="@string/delete_devices" />
+
+</menu>

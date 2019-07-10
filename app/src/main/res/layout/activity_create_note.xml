@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fonted"
+    tools:context="com.example.android.justjava.CreateNoteActivity">
+
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<include layout="@layout/toolbar" />-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+    <TextView
+        android:id="@+id/idDevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:ems="15"
+        android:fontFamily="@font/cuprum_regular"
+        android:hint="ID устройства"
+        android:inputType="numberDecimal"
+        android:textStyle="bold"
+        android:text="Новое устройство ID: DEVICE_ID#5777"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="20sp"
+        android:theme="@style/MyEditTextTheme" />
+
+    <EditText
+        android:id="@+id/nameDeviceList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/idDevice"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:ems="15"
+        android:fontFamily="@font/cuprum_regular"
+        android:hint="@string/nameDeviceList"
+        android:inputType="text"
+        android:textColorHint="@color/colorTextPrimary"
+        android:textSize="15sp"
+        android:theme="@style/MyEditTextTheme" />
+
+    <EditText
+        android:id="@+id/nameDriver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="15"
+        android:fontFamily="@font/cuprum_regular"
+        android:hint="@string/nameDriver"
+        android:inputType="text"
+        android:textColorHint="@color/colorTextPrimary"
+        android:textSize="15sp"
+        android:theme="@style/MyEditTextTheme"
+        android:layout_below="@+id/nameDeviceList"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/telephoneDriver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="15"
+        android:fontFamily="@font/cuprum_regular"
+        android:hint="@string/telDriver"
+        android:inputType="numberDecimal"
+        android:textColorHint="@color/colorTextPrimary"
+        android:textSize="15sp"
+        android:theme="@style/MyEditTextTheme"
+        android:layout_below="@+id/nameDriver"
+        android:layout_centerHorizontal="true" />
+
+    <FrameLayout
+        android:id="@+id/hello1"
+        android:layout_width="284dp"
+        android:layout_height="42dp"
+        android:layout_below="@+id/telephoneDriver"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/addButtonDevice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/cuprum_regular"
+            android:text="Добавить"
+            android:textColor="@color/white" />
+    </FrameLayout>
+
+
+</RelativeLayout>
