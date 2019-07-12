@@ -358,9 +358,28 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
             Log.d("##", "rrr1 "+string +string.startsWith("1t"));
             if (noteId == 1) {
                 numberTable = "1t";
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS1, 1);
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS2, 2);
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS3, 3);
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS4, 4);
+                getContentResolver().update(ContentUris.withAppendedId(NotesContract.Notes.URI, noteId),
+                        contentValues,
+                        null,
+                        null);
+
             }
             else if (noteId == 2) {
                 numberTable = "2t";
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS1, 1);
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS2, 2);
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS3, 3);
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS4, 4);
+                getContentResolver().update(ContentUris.withAppendedId(NotesContract.Notes.URI, noteId),
+                        contentValues,
+                        null,
+                        null);
             }
             if (string.startsWith("1t")) {
                 for (String retval : string.split(" ")) {
@@ -405,13 +424,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 String text = "a";
                 long currentTime = System.currentTimeMillis();
 
-                ContentValues contentValues = new ContentValues();
+//                ContentValues contentValues = new ContentValues();
 //                                contentValues.put(NotesContract.Notes.COLUMN_TITLE, title);
 
-//                                contentValues.put(NotesContract.Notes.COLUMN_AXIS1, axis1);
-//                                contentValues.put(NotesContract.Notes.COLUMN_AXIS2, axis2);
-//                                contentValues.put(NotesContract.Notes.COLUMN_AXIS3, axis3);
-//                                contentValues.put(NotesContract.Notes.COLUMN_AXIS4, axis4);
+//                                contentValues.put(NotesContract.Notes.COLUMN_AXIS1, 1);
+//                                contentValues.put(NotesContract.Notes.COLUMN_AXIS2, 2);
+//                                contentValues.put(NotesContract.Notes.COLUMN_AXIS3, 3);
+//                                contentValues.put(NotesContract.Notes.COLUMN_AXIS4, 4);
 
 //                                contentValues.put(NotesContract.Notes.COLUMN_NOTE, text);
 
@@ -420,15 +439,15 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 //                                    contentValues.put(NotesContract.Notes.COLUMN_CREATED_TS, currentTime);
 //                                }
 
-                contentValues.put(NotesContract.Notes.COLUMN_UPDATED_TS, currentTime);
-                if (noteId == -1) {
-                    getContentResolver().insert(NotesContract.Notes.URI, contentValues);
-                } else {
-                    getContentResolver().update(ContentUris.withAppendedId(NotesContract.Notes.URI, noteId),
-                            contentValues,
-                            null,
-                            null);
-                }
+//                contentValues.put(NotesContract.Notes.COLUMN_UPDATED_TS, currentTime);
+//                if (noteId == -1) {
+//                    getContentResolver().insert(NotesContract.Notes.URI, contentValues);
+//                } else {
+//                    getContentResolver().update(ContentUris.withAppendedId(NotesContract.Notes.URI, noteId),
+//                            contentValues,
+//                            null,
+//                            null);
+//                }
 
 //                    }
 //                }

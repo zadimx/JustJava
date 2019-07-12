@@ -142,7 +142,7 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
         int idColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes._ID);
         long id = cursor.getLong(idColumnIndex);
 
-        Log.d("ID", "#ID#"+id+" "+NotesContract.Notes._ID);
+        Log.d("ID", "#ID#"+id+" "+NotesContract.Notes._ID +" "+ getItemCount());
         if (id == 1) {
             editAxis(viewHolder, DbActivity.getT1());
         }
