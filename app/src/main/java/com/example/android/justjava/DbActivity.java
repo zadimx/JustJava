@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -77,6 +78,8 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
 
     private static LoginActivity loginActivity;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
     private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,11 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 //        setSupportActionBar(toolbar);
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        swipeRefreshLayout = findViewById(R.id.db_activity_main);
+        swipeRefreshLayout.setOnRefreshListener(onRefreshListener);
+
+
 
         mServer = new DbActivity();
         RecyclerView recyclerView = findViewById(R.id.notes_rv);
@@ -121,7 +129,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     e.printStackTrace();
                 }
                 while (true) {
-                    long date = System.currentTimeMillis()+500;
+                    long date = System.currentTimeMillis()+100;
                     while (date > System.currentTimeMillis()) {
                         if (date == System.currentTimeMillis()) {
                             try {
@@ -503,4 +511,78 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         str = str.replaceAll("\\D+","");
         return str;
     }
+
+
+
+    private final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+
+            //                    while (true) {
+//                        long date = System.currentTimeMillis() + 500;
+//                        while (date > System.currentTimeMillis()) {
+//                            if (date == System.currentTimeMillis()) {
+
+
+
+            for (int j = 1; j <= notesAdapter.getItemCount(); j++) {
+                String title = "a";
+                int i = -1;
+                numberTable = j + "t";
+                ContentValues contentValues = new ContentValues();
+
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS1, 1);
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS2, 2);
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS3, 3);
+                contentValues.put(NotesContract.Notes.COLUMN_AXIS4, 4);
+                Log.d("##", "rrr1 " + string + string.startsWith("1t") + " " + notesAdapter.getItemCount());
+                getContentResolver().update(ContentUris.withAppendedId(NotesContract.Notes.URI, j),
+                        contentValues,
+                        null,
+                        null);
+
+                if (string.startsWith("1t")) {
+                    for (String retval : string.split(" ")) {
+                        Log.d("##", "rrr2 " + retval);
+                        i = i + 1;
+                        Log.d("##", "rrr7 " + i % 4);
+                        if (retval.startsWith("1t")) {
+                            retval = retval.replace("1t", "");
+                            Log.d("##", "rrr3 " + retval);
+                        }
+                        if (i == 4) {
+                            Log.d("##", "rrr4 " + retval);
+                            break;
+                        }
+                        Log.d("##", "rrr5 " + retval);
+                        t1[i] = retval;
+                        Log.d("##", "rrr6 " + t1[i]);
+
+                    }
+
+//                axis1 = t1[0];
+//                axis2 = t1[1];
+//                axis3 = t1[2];
+//                axis4 = t1[3];
+                }
+                if (string.startsWith("2t")) {
+                    for (String retval : string.split(" ")) {
+                        i = i + 1;
+                        if (retval.startsWith("2t")) {
+                            retval = retval.replace("2t", "");
+                        }
+                        if (i == 4) {
+                            break;
+                        }
+                        t2[i] = retval;
+                    }
+//                axis1 = t1[0];
+//                axis2 = t1[1];
+//                axis3 = t1[2];
+//                axis4 = t1[3];
+                }
+            }
+                swipeRefreshLayout.setRefreshing(false);
+        }
+    };
 }

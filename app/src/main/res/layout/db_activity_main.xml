@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/db_activity_main"
     tools:context="com.example.android.justjava.DbActivity"
     android:background="@color/milk">
 
