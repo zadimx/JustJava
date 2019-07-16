@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.currentLocationImageButton && googleMap != null && currentLocation != null)
-                MainActivity.this.animateCamera(new LatLng(DbActivity.longit,DbActivity.lat));
+                MainActivity.this.animateCamera(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev",-1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
         }
     };
     //Изменил
@@ -59,10 +59,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return;
             currentLocation = locationResult.getLastLocation();
             if (firstTimeFlag && googleMap != null) {
-                animateCamera(new LatLng(DbActivity.longit,DbActivity.lat));
+                animateCamera(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev",-1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
                 firstTimeFlag = false;
             }
-            showMarker(new LatLng(DbActivity.longit,DbActivity.lat));
+            showMarker(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev", -1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
         }
     };
 

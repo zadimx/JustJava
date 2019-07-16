@@ -53,16 +53,20 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
     private Toast toast;
 
-    public double getLat() {
+    public double[] getLat() {
         return lat;
     }
 
-    public double getLongit() {
+    public double[] getLongit() {
         return longit;
     }
 
-    public static double lat;
-    public static double longit;
+    public static double[] lat = new double[20];
+    public static double[] longit = new double[20];
+    public static double lat1;
+    public static double longit1;
+    public static double lat2;
+    public static double longit2;
 
     private NotesDbHelper notesDbHelper;
 
@@ -75,7 +79,6 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
     private static String t2[] = new String[4];
     private static String fullT2[] = new String[6];
-    private static String fullT3[] = new String[6];
 
     private static HashMap<String, String[]> arrayAxisTemp = new HashMap<>();
 
@@ -230,54 +233,83 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     for (int i = 0; i < t1.length; i++) {
                         t1[i] = fullT1[i];
                     }
+
+
+                    for (int j = 4; j < fullT1.length && fullT1[j] != null; j++) {
+                        if (j==4) {
+                            String[] f= fullT1[j].split("\\.");
+                            String str = "";
+                            int q=0;
+                            int q1=0;
+                            int q2=0;
+                            double tmpLat = Double.parseDouble(fullT1[j]);
+                            q = (int)tmpLat;
+                            q1 = q/100;
+                            q2 = q%100;
+                            str = q2+"."+f[1];
+                            lat1 = q1+Double.parseDouble(str)/60;
+                            lat[0] = lat1;
+                            Log.d("###$$","###$$"+string+"------"+lat);
+                        }
+                        if (j==5) {
+                            String[] f= fullT1[j].split("\\.");
+                            String str = "";
+                            int q=0;
+                            int q1=0;
+                            int q2=0;
+                            double tmpLong = Double.parseDouble(fullT1[j]);
+                            q = (int)tmpLong;
+                            q1 = q/100;
+                            q2 = q%100;
+                            str = q2+"."+f[1];
+                            longit1 = q1+Double.parseDouble(str)/60;
+                            longit[0] = longit1;
+                            Log.d("###$$2", string+"-----"+longit);
+                        }
+                    }
+
+
                 }
                 if (x.getKey().equals("2t")) {
                     fullT2 = (String[]) x.getValue();
                     for (int i = 0; i < t2.length; i++) {
                         t2[i] = fullT2[i];
                     }
+
+                    for (int j = 4; j < fullT2.length && fullT2[j] != null; j++) {
+                        if (j==4) {
+                            String[] f= fullT2[j].split("\\.");
+                            String str = "";
+                            int q=0;
+                            int q1=0;
+                            int q2=0;
+                            double tmpLat = Double.parseDouble(fullT2[j]);
+                            q = (int)tmpLat;
+                            q1 = q/100;
+                            q2 = q%100;
+                            str = q2+"."+f[1];
+                            lat2 = q1+Double.parseDouble(str)/60;
+                            lat[1] = lat2;
+                            Log.d("###$$","###$$"+string+"------"+lat);
+                        }
+                        if (j==5) {
+                            String[] f= fullT2[j].split("\\.");
+                            String str = "";
+                            int q=0;
+                            int q1=0;
+                            int q2=0;
+                            double tmpLong = Double.parseDouble(fullT2[j]);
+                            q = (int)tmpLong;
+                            q1 = q/100;
+                            q2 = q%100;
+                            str = q2+"."+f[1];
+                            longit2 = q1+Double.parseDouble(str)/60;
+                            longit[1] = longit2;
+                            Log.d("###$$2", string+"-----"+longit);
+                        }
+                    }
+
                 }
-            }
-//            for (String retval : string.split(" ")) {
-            for (int j = 4; j < fullT1.length && fullT1[j] != null; j++) {
-
-                if (j==4) {
-                    String[] f= fullT1[j].split("\\.");
-                    String str = "";
-                    int q=0;
-                    int q1=0;
-                    int q2=0;
-                    int q3=0;
-                    lat = Double.parseDouble(fullT1[j]);
-                    q = (int)lat;
-                    q1 = q/100;
-                    q2 = q%100;
-//                    q3 = Integer.parseInt(f[1]);
-                    str = q2+"."+f[1];
-//                    lat =  Math.signum(q1) * (Math.abs(q1) + (q2 / 60.0) + (q3 / 3600.0));
-                    lat = q1+Double.parseDouble(str)/60;
-                    Log.d("###$$","###$$"+string+"------"+lat);
-                }
-                if (j==5) {
-
-                    String[] f= fullT1[j].split("\\.");
-                    String str = "";
-                    int q=0;
-                    int q1=0;
-                    int q2=0;
-                    int q3=0;
-                    longit = Double.parseDouble(fullT1[j]);
-                    q = (int)longit;
-                    q1 = q/100;
-                    q2 = q%100;
-                    str = q2+"."+f[1];
-
-                    longit = q1+Double.parseDouble(str)/60;
-//                    q3 = Integer.parseInt(f[1]);
-//                    longit =  Math.signum(q1) * (Math.abs(q1) + (q2 / 60.0) + (q3 / 3600.0));
-                    Log.d("###$$2", string+"-----"+longit);
-                }
-
             }
 
 
@@ -513,6 +545,12 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         public void onNoteClickMap(final long noteId) {
 
             Intent intent = new Intent(DbActivity.this, MainActivity.class);
+            if (noteId == 1000) {
+                intent.putExtra("numDev", 0);
+            }
+            if (noteId == 2000) {
+                intent.putExtra("numDev", 1);
+            }
 
             startActivity(intent);
 //            }
