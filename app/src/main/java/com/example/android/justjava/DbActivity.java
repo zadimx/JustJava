@@ -7,6 +7,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -118,7 +120,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 //        notesAdapter.notifyDataSetChanged();
 
         toast = Toast.makeText(getApplicationContext(),
-                "На данный момент можно подключится только к одному девасу",
+                "Вы больше не имеете устройств.",
                 Toast.LENGTH_SHORT);
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         v.setTextColor(Color.BLUE);
@@ -360,13 +362,14 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
             case R.id.add_device:
                 NotesDbHelper db = new NotesDbHelper(this);
-//                if (DatabaseUtils.queryNumEntries(db.getReadableDatabase(), NotesContract.Notes.TABLE_NAME) == 0) {
+                Log.d("##add_device", "5655   "+DatabaseUtils.queryNumEntries(db.getReadableDatabase(), NotesContract.Notes.TABLE_NAME));
+                if (DatabaseUtils.queryNumEntries(db.getReadableDatabase(), NotesContract.Notes.TABLE_NAME) < arrayAxisTemp.size()) {
                     startActivity(intent);
-//                }
-//                else {
-//                    toast.setGravity(Gravity.CENTER, 0, 0);
-//                    toast.show();
-//                }
+                }
+                else {
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
                 return true;
 
             case R.id.delete_devices:
