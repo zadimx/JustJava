@@ -68,7 +68,7 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
 //        textTil = findViewById(R.id.text_til);
 
         noteId = getIntent().getLongExtra(EXTRA_NOTE_ID, -1);
-
+        Log.d("qw", "yyyy!@   "+noteId+"");
         if (noteId != -1) {
             getLoaderManager().initLoader(
                     0, // Идентификатор загрузчика

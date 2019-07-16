@@ -1,6 +1,7 @@
 package com.example.android.justjava.ui;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Binder;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -149,8 +150,11 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
         else if(id == 2){
             editAxis(viewHolder, DbActivity.getT2());
         }
-        //ID ячейки списка!!!!!!!!!
+        //ID ячейки view!!!!!!!!!
         viewHolder.itemView.setTag(id);
+
+        viewHolder.button_map.setTag(id*1000);
+
 
         int titleColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_TITLE);
         String nameDriver = cursor.getString(titleColumnIndex);
@@ -164,6 +168,7 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
 
         int numberPhoneColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NUMBER_PHONE);
         String namberPhone = cursor.getString(numberPhoneColumnIndex);
+        viewHolder.icon_phone.setTag(Long.parseLong(namberPhone));
 //        viewHolder.axis4.setText(axis4);
 
 
@@ -230,14 +235,15 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
                 @Override
                 public void onClick(View v) {
                     long noteId = (Long) v.getTag();
-
+                    Log.d("##", "tttt0000    "+v.getTag());
                     onNoteClickListener.onNoteClick(noteId);
                 }
             });
             icon_phone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    long noteId = 78788;
+                    Log.d("##", "tttt0000    "+v.getTag());
+                    long noteId = (Long) v.getTag();
 
                     onNoteClickListenerPhone.onNoteClickPhone(noteId);
                 }
@@ -245,8 +251,8 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
             button_map.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    long noteId = 78789;
-
+                    long noteId = (Long) v.getTag();
+                    Log.d("##", "tttt0000    "+v.getTag());
                     onNoteClickListenerMap.onNoteClickMap(noteId);
                 }
             });

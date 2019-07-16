@@ -30,8 +30,14 @@ import com.example.android.justjava.map.MainActivity;
 import com.example.android.justjava.ui.NotesAdapter;
 
 import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DbActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -65,8 +71,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     private Thread thread12;
     private NotesAdapter notesAdapter;
     private static String t1[] = new String[4];
-    private static String t2[] = new String[4];
+    private static String fullT1[] = new String[6];
 
+    private static String t2[] = new String[4];
+    private static String fullT2[] = new String[6];
+    private static String fullT3[] = new String[6];
+
+    private static HashMap<String, String[]> arrayAxisTemp = new HashMap<>();
 
     public static String[] getT1() {
         return t1;
@@ -129,7 +140,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     e.printStackTrace();
                 }
                 while (true) {
-                    long date = System.currentTimeMillis()+100;
+                    long date = System.currentTimeMillis()+500;
                     while (date > System.currentTimeMillis()) {
                         if (date == System.currentTimeMillis()) {
                             try {
@@ -208,20 +219,36 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         try {
             mSocket.getOutputStream().write(data);
             mSocket.getOutputStream().flush();
-            int count = mSocket.getInputStream().read(buffer, 0, buffer.length);
-            string = new String(buffer, 0, count);
-            Log.d("###$$","##$"+string);
-            int i = -1;
-            for (String retval : string.split(" ")) {
-                i = i + 1;
-                if (i==4) {
-                    String[] f= retval.split("\\.");
+//            int count = mSocket.getInputStream().read(buffer, 0, buffer.length);
+//            string = new String(buffer, 0, count);
+            arrayAxisTemp = (HashMap<String, String[]>) new ObjectInputStream(mSocket.getInputStream()).readObject();
+
+            for (Map.Entry x: arrayAxisTemp.entrySet()
+                 ) {
+                if (x.getKey().equals("1t")) {
+                    fullT1 = (String[]) x.getValue();
+                    for (int i = 0; i < t1.length; i++) {
+                        t1[i] = fullT1[i];
+                    }
+                }
+                if (x.getKey().equals("2t")) {
+                    fullT2 = (String[]) x.getValue();
+                    for (int i = 0; i < t2.length; i++) {
+                        t2[i] = fullT2[i];
+                    }
+                }
+            }
+//            for (String retval : string.split(" ")) {
+            for (int j = 4; j < fullT1.length && fullT1[j] != null; j++) {
+
+                if (j==4) {
+                    String[] f= fullT1[j].split("\\.");
                     String str = "";
                     int q=0;
                     int q1=0;
                     int q2=0;
                     int q3=0;
-                    lat = Double.parseDouble(retval);
+                    lat = Double.parseDouble(fullT1[j]);
                     q = (int)lat;
                     q1 = q/100;
                     q2 = q%100;
@@ -231,15 +258,15 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     lat = q1+Double.parseDouble(str)/60;
                     Log.d("###$$","###$$"+string+"------"+lat);
                 }
-                if (i==5) {
+                if (j==5) {
 
-                    String[] f= retval.split("\\.");
+                    String[] f= fullT1[j].split("\\.");
                     String str = "";
                     int q=0;
                     int q1=0;
                     int q2=0;
                     int q3=0;
-                    longit = Double.parseDouble(retval);
+                    longit = Double.parseDouble(fullT1[j]);
                     q = (int)longit;
                     q1 = q/100;
                     q2 = q%100;
@@ -363,7 +390,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 //                            if (date == System.currentTimeMillis()) {
                                 String title = "a";
                                 int i = -1;
-            Log.d("##", "rrr1 "+string +string.startsWith("1t"));
+            Log.d("##", "rrr2333     "+arrayAxisTemp.get("1t"));
             if (noteId == 1) {
                 numberTable = "1t";
                 ContentValues contentValues = new ContentValues();
@@ -377,36 +404,37 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                         null);
 
             }
-            else if (noteId == 2) {
-                numberTable = "2t";
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(NotesContract.Notes.COLUMN_AXIS1, 1);
-                contentValues.put(NotesContract.Notes.COLUMN_AXIS2, 2);
-                contentValues.put(NotesContract.Notes.COLUMN_AXIS3, 3);
-                contentValues.put(NotesContract.Notes.COLUMN_AXIS4, 4);
-                getContentResolver().update(ContentUris.withAppendedId(NotesContract.Notes.URI, noteId),
-                        contentValues,
-                        null,
-                        null);
-            }
+//            else if (noteId == 2) {
+//                numberTable = "2t";
+//                ContentValues contentValues = new ContentValues();
+//                contentValues.put(NotesContract.Notes.COLUMN_AXIS1, 1);
+//                contentValues.put(NotesContract.Notes.COLUMN_AXIS2, 2);
+//                contentValues.put(NotesContract.Notes.COLUMN_AXIS3, 3);
+//                contentValues.put(NotesContract.Notes.COLUMN_AXIS4, 4);
+//                getContentResolver().update(ContentUris.withAppendedId(NotesContract.Notes.URI, noteId),
+//                        contentValues,
+//                        null,
+//                        null);
+//            }
             if (string.startsWith("1t")) {
-                for (String retval : string.split(" ")) {
-                    Log.d("##", "rrr2 "+retval);
-                    i = i + 1;
-                    Log.d("##", "rrr7 "+i%4);
-                    if (retval.startsWith("1t")) {
-                        retval = retval.replace("1t", "");
-                        Log.d("##", "rrr3 "+retval);
-                    }
-                    if (i == 4) {
-                        Log.d("##", "rrr4 "+retval);
-                        break;
-                    }
-                    Log.d("##", "rrr5 "+retval);
-                    t1[i] = retval;
-                    Log.d("##", "rrr6 "+t1[i]);
+//                for (String retval : string.split(" ")) {
+//                    Log.d("##", "rrr2 "+retval);
+//                    i = i + 1;
+//                    Log.d("##", "rrr7 "+i%4);
+//                    if (retval.startsWith("1t")) {
+//                        retval = retval.replace("1t", "");
+//                        Log.d("##", "rrr3 "+retval);
+//                    }
+//                    if (i == 4) {
+//                        Log.d("##", "rrr4 "+retval);
+//                        break;
+//                    }
+//                    Log.d("##", "rrr5 "+retval);
+//                    t1[i] = retval;
+//                    Log.d("##", "rrr6 "+t1[i]);
+//
+//                }
 
-                }
 
 //                axis1 = t1[0];
 //                axis2 = t1[1];
@@ -504,8 +532,10 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         if (cursor.moveToFirst()) {
             do {
                 data1 = cursor.getBlob(6);
+                Log.d("##", "rrr2333     "+data1);
             } while (cursor.moveToNext());
         }
+
         cursor.close();
         String str = new String(data1);
         str = str.replaceAll("\\D+","");
@@ -523,64 +553,62 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 //                        while (date > System.currentTimeMillis()) {
 //                            if (date == System.currentTimeMillis()) {
 
-
+//            Log.d("##", "rrr2333     "+fullT1[1]);
 
             for (int j = 1; j <= notesAdapter.getItemCount(); j++) {
                 String title = "a";
                 int i = -1;
-                numberTable = j + "t";
                 ContentValues contentValues = new ContentValues();
 
                 contentValues.put(NotesContract.Notes.COLUMN_AXIS1, 1);
                 contentValues.put(NotesContract.Notes.COLUMN_AXIS2, 2);
                 contentValues.put(NotesContract.Notes.COLUMN_AXIS3, 3);
                 contentValues.put(NotesContract.Notes.COLUMN_AXIS4, 4);
-                Log.d("##", "rrr1 " + string + string.startsWith("1t") + " " + notesAdapter.getItemCount());
+                Log.d("##", "rrr1 " + (arrayAxisTemp.get(0)) + " " + notesAdapter.getItemCount());
                 getContentResolver().update(ContentUris.withAppendedId(NotesContract.Notes.URI, j),
                         contentValues,
                         null,
                         null);
 
-                if (string.startsWith("1t")) {
-                    for (String retval : string.split(" ")) {
-                        Log.d("##", "rrr2 " + retval);
-                        i = i + 1;
-                        Log.d("##", "rrr7 " + i % 4);
-                        if (retval.startsWith("1t")) {
-                            retval = retval.replace("1t", "");
-                            Log.d("##", "rrr3 " + retval);
-                        }
-                        if (i == 4) {
-                            Log.d("##", "rrr4 " + retval);
-                            break;
-                        }
-                        Log.d("##", "rrr5 " + retval);
-                        t1[i] = retval;
-                        Log.d("##", "rrr6 " + t1[i]);
-
-                    }
+//                    for (String retval : string.split(" ")) {
+//                        Log.d("##", "rrr2 " + retval);
+//                        i = i + 1;
+//                        Log.d("##", "rrr7 " + i % 4);
+//                        if (retval.startsWith("1t")) {
+//                            retval = retval.replace("1t", "");
+//                            Log.d("##", "rrr3 " + retval);
+//                        }
+//                        if (i == 4) {
+//                            Log.d("##", "rrr4 " + retval);
+//                            break;
+//                        }
+//                        Log.d("##", "rrr5 " + retval);
+//                        t1[i] = retval;
+//                        Log.d("##", "rrr6 " + t1[i]);
+//
+//                    }
+//                    t1 = arrayAxisTemp.get("t1");
 
 //                axis1 = t1[0];
 //                axis2 = t1[1];
 //                axis3 = t1[2];
 //                axis4 = t1[3];
-                }
-                if (string.startsWith("2t")) {
-                    for (String retval : string.split(" ")) {
-                        i = i + 1;
-                        if (retval.startsWith("2t")) {
-                            retval = retval.replace("2t", "");
-                        }
-                        if (i == 4) {
-                            break;
-                        }
-                        t2[i] = retval;
-                    }
-//                axis1 = t1[0];
-//                axis2 = t1[1];
-//                axis3 = t1[2];
-//                axis4 = t1[3];
-                }
+//                if (string.startsWith("2t")) {
+//                    for (String retval : string.split(" ")) {
+//                        i = i + 1;
+//                        if (retval.startsWith("2t")) {
+//                            retval = retval.replace("2t", "");
+//                        }
+//                        if (i == 4) {
+//                            break;
+//                        }
+//                        t2[i] = retval;
+//                    }
+////                axis1 = t1[0];
+////                axis2 = t1[1];
+////                axis3 = t1[2];
+////                axis4 = t1[3];
+//                }
             }
                 swipeRefreshLayout.setRefreshing(false);
         }
