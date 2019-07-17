@@ -29,7 +29,6 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
     private final OnNoteClickListenerMap onNoteClickListenerMap;
 
 
-    private static int count=0;
     public NotesAdapter(Cursor cursor, OnNoteClickListener onNoteClickListener, OnNoteClickListenerPhone onNoteClickListenerPhone, OnNoteClickListenerMap onNoteClickListenerMap) {
         super(cursor);
 
@@ -43,43 +42,47 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
 
     public void editAxis(ViewHolder viewHolder, String[] a){
 
-        int axis1ColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_AXIS1);
-        String axis1 = cursor.getString(axis1ColumnIndex);
-        if (axis1 != null && axis1.matches("-?\\d+")) {
-            if (Integer.parseInt(axis1) < 0 ) {
+//        int axis1ColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_AXIS1);
+//        String axis1 = cursor.getString(axis1ColumnIndex);
+        if (a[0] != null && a[0].matches("-?\\d+")) {
+            if (Integer.parseInt(a[0]) <= 0 ) {
                 viewHolder.axis1.setText(0+" т");
             }
-            else if (Integer.parseInt(axis1) > 0 && axis1.matches("-?\\d+")) {
+            else if (Integer.parseInt(a[0]) > 0 && a[0].matches("-?\\d+")) {
 //                viewHolder.axis1.setText(Integer.parseInt(axis1)+" кг");
                 viewHolder.axis1.setText(a[0]+" кг");
             }
         }
 
 
-        int axis2ColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_AXIS2);
-        String axis2 = cursor.getString(axis2ColumnIndex);
-        if (axis2 != null && axis2.matches("-?\\d+")) {
-            if (Integer.parseInt(axis2) < 0) {
+//        int axis2ColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_AXIS2);
+//        String axis2 = cursor.getString(axis2ColumnIndex);
+        if (a[1] != null && a[1].matches("-?\\d+")) {
+            if (Integer.parseInt(a[1]) <= 0) {
                 viewHolder.axis2.setText(0+" т");
             }
-            else if (Integer.parseInt(axis2) > 0 && axis2.matches("-?\\d+")) {
+            else if (Integer.parseInt(a[1]) > 0 && a[1].matches("-?\\d+")) {
 //                viewHolder.axis2.setText(Integer.parseInt(axis2)+" кг");
                 viewHolder.axis2.setText(a[1]+" кг");
             }
         }
 
 
-        if (axis1 != null && axis2 != null && axis1.matches("-?\\d+") && axis2.matches("-?\\d+")) {
-            if (Integer.parseInt(axis1) < 0 && Integer.parseInt(axis2) < 0) {
+        if (a[0] != null && a[1] != null && a[0].matches("-?\\d+") && a[1].matches("-?\\d+")) {
+            if (Integer.parseInt(a[0]) <= 0 && Integer.parseInt(a[1]) <= 0) {
                 viewHolder.axisMidNext.setText(0+" кг");
+                Log.d("ааа", "33R1");
             }
-            else if (Integer.parseInt(axis1) < 0) {
-                viewHolder.axisMidNext.setText((Integer.parseInt(axis1)+" кг"));
+            else if (Integer.parseInt(a[0]) <= 0) {
+                viewHolder.axisMidNext.setText((Integer.parseInt(a[0])+" кг"));
+                Log.d("ааа", "33R2");
             }
-            else if (Integer.parseInt(axis1) < 0) {
-                viewHolder.axisMidNext.setText((Integer.parseInt(axis2)+" кг"));
+            else if (Integer.parseInt(a[0]) <= 0) {
+                viewHolder.axisMidNext.setText((Integer.parseInt(a[1])+" кг"));
+                Log.d("ааа", "33R3");
             }
-            else viewHolder.axisMidNext.setText((Integer.parseInt(axis1)+Integer.parseInt(axis2))+" кг");
+            else {viewHolder.axisMidNext.setText((Integer.parseInt(a[0])+Integer.parseInt(a[1]))+" кг");
+            Log.d("ааа", "33R4  "+(Integer.parseInt(a[0]))+" "+Integer.parseInt(a[1]));}
         }
 
 
@@ -90,13 +93,13 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
 //        viewHolder.axis3.setText(axis3+" т");
 
 
-        int axis4ColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_AXIS3);
-        String axis4 = cursor.getString(axis4ColumnIndex);
-        if (axis4 != null && axis4.matches("-?\\d+")) {
-            if (Integer.parseInt(axis4) < 0) {
+//        int axis4ColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_AXIS3);
+//        String axis4 = cursor.getString(axis4ColumnIndex);
+        if (a[3] != null && a[3].matches("-?\\d+")) {
+            if (Integer.parseInt(a[3]) <= 0) {
                 viewHolder.axis4.setText(0+" кг");
             }
-            else if (Integer.parseInt(axis4) > 0 ) {
+            else if (Integer.parseInt(a[3]) > 0 ) {
 //                viewHolder.axis4.setText(Integer.parseInt(axis4)+" кг");
                 viewHolder.axis4.setText(a[3]+" кг");
             }
@@ -106,30 +109,30 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
 
         // КОСТЫЛЬ УДАЛИТЬ!!!!!!!!!!
 
-        int axis3ColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_AXIS3);
-        String axis3 = cursor.getString(axis3ColumnIndex);
+//        int axis3ColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_AXIS3);
+//        String axis3 = cursor.getString(axis3ColumnIndex);
 
-        if (axis3 != null && axis3.matches("-?\\d+")) {
-            axis3 = Integer.parseInt(axis3) + (int)Math.round(Math.random()*100)+"";
-            if (Integer.parseInt(axis3) < 0 ) {
+        if (a[2] != null && a[2].matches("-?\\d+")) {
+//            a[2] = Integer.parseInt(a[2]) + (int)Math.round(Math.random()*100)+"";
+            if (Integer.parseInt(a[2]) <= 0 ) {
                 viewHolder.axis3.setText(0+" кг");
             }
-            else if (Integer.parseInt(axis3) > 0 && axis3.matches("-?\\d+")) {
+            else if (Integer.parseInt(a[2]) > 0 && a[2].matches("-?\\d+")) {
 //                viewHolder.axis3.setText(Integer.parseInt(axis3)+" кг");
                 viewHolder.axis3.setText(a[2]+" кг");
             }
         }
 
 
-        if (axis3 != null && axis4 != null && axis3.matches("-?\\d+") && axis4.matches("-?\\d+")) {
-            if (Integer.parseInt(axis3) < 0 && Integer.parseInt(axis4) < 0) {
+        if (a[2] != null && a[3] != null && a[2].matches("-?\\d+") && a[3].matches("-?\\d+")) {
+            if (Integer.parseInt(a[2]) <= 0 && Integer.parseInt(a[3]) <= 0) {
                 viewHolder.axisMidBack.setText(0 + " кг");
-            } else if (Integer.parseInt(axis3) < 0) {
-                viewHolder.axisMidBack.setText((Integer.parseInt(axis3) + " кг"));
-            } else if (Integer.parseInt(axis4) < 0) {
-                viewHolder.axisMidBack.setText((Integer.parseInt(axis4) + " кг"));
+            } else if (Integer.parseInt(a[2]) <= 0) {
+                viewHolder.axisMidBack.setText((Integer.parseInt(a[2]) + " кг"));
+            } else if (Integer.parseInt(a[3]) <= 0) {
+                viewHolder.axisMidBack.setText((Integer.parseInt(a[3]) + " кг"));
             } else
-                viewHolder.axisMidBack.setText((Integer.parseInt(axis3) + Integer.parseInt(axis4)) + " кг");
+                viewHolder.axisMidBack.setText((Integer.parseInt(a[2]) + Integer.parseInt(a[3])) + " кг");
         }
     }
 
@@ -143,13 +146,68 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
         int idColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes._ID);
         long id = cursor.getLong(idColumnIndex);
 
-        Log.d("ID", "#ID#"+id+" "+NotesContract.Notes._ID +" "+ getItemCount());
         if (id == 1) {
             editAxis(viewHolder, DbActivity.getT1());
         }
         else if(id == 2){
             editAxis(viewHolder, DbActivity.getT2());
         }
+        else if(id == 3){
+            editAxis(viewHolder, DbActivity.getT3());
+        }
+        else if(id == 4){
+            editAxis(viewHolder, DbActivity.getT4());
+        }
+        else if(id == 5){
+            editAxis(viewHolder, DbActivity.getT5());
+        }
+        else if(id == 6){
+            editAxis(viewHolder, DbActivity.getT6());
+        }
+        else if(id == 7){
+            editAxis(viewHolder, DbActivity.getT7());
+        }
+        else if(id == 8){
+            editAxis(viewHolder, DbActivity.getT8());
+        }
+        else if(id == 9){
+            editAxis(viewHolder, DbActivity.getT9());
+        }
+        else if(id == 10){
+            editAxis(viewHolder, DbActivity.getT10());
+        }
+        else if(id == 11){
+            editAxis(viewHolder, DbActivity.getT11());
+        }
+        else if(id == 12){
+            editAxis(viewHolder, DbActivity.getT12());
+        }
+        else if(id == 13){
+            editAxis(viewHolder, DbActivity.getT13());
+        }
+        else if(id == 14){
+            editAxis(viewHolder, DbActivity.getT14());
+        }
+        else if(id == 15){
+            editAxis(viewHolder, DbActivity.getT15());
+        }
+        else if(id == 16){
+            editAxis(viewHolder, DbActivity.getT16());
+        }
+        else if(id == 17){
+            editAxis(viewHolder, DbActivity.getT17());
+        }
+        else if(id == 18){
+            editAxis(viewHolder, DbActivity.getT18());
+        }
+        else if(id == 19){
+            editAxis(viewHolder, DbActivity.getT19());
+        }
+        else if(id == 20){
+            editAxis(viewHolder, DbActivity.getT20());
+        }
+
+
         //ID ячейки view!!!!!!!!!
         viewHolder.itemView.setTag(id);
 
@@ -235,14 +293,12 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
                 @Override
                 public void onClick(View v) {
                     long noteId = (Long) v.getTag();
-                    Log.d("##", "tttt0000    "+v.getTag());
                     onNoteClickListener.onNoteClick(noteId);
                 }
             });
             icon_phone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("##", "tttt0000    "+v.getTag());
                     long noteId = (Long) v.getTag();
 
                     onNoteClickListenerPhone.onNoteClickPhone(noteId);
@@ -252,7 +308,6 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
                 @Override
                 public void onClick(View v) {
                     long noteId = (Long) v.getTag();
-                    Log.d("##", "tttt0000    "+v.getTag());
                     onNoteClickListenerMap.onNoteClickMap(noteId);
                 }
             });

@@ -32,7 +32,6 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
     public static final String EXTRA_NOTE_ID = "note_id";
 
     private Toast toast;
-    private TextView idDevice;
 
     private static int countEmtyTextNameDevice = 0;
     private static int countEmtyTextNameDriver = 0;
@@ -42,8 +41,6 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
     private EditText telephoneDriver;
 
     private ImageView addButtonDevice;
-//    private TextInputLayout titleTil;
-//    private TextInputLayout textTil;
 
     private long noteId;
 
@@ -54,21 +51,12 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
 
         setContentView(R.layout.activity_create_note);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         nameDeviceList = findViewById(R.id.nameDeviceList);
         nameDriver = findViewById(R.id.nameDriver);
         telephoneDriver = findViewById(R.id.telephoneDriver);
         addButtonDevice = findViewById(R.id.addButtonDevice);
 
-//        titleTil = findViewById(R.id.title_til);
-//        textTil = findViewById(R.id.text_til);
-
         noteId = getIntent().getLongExtra(EXTRA_NOTE_ID, -1);
-        Log.d("qw", "yyyy!@   "+noteId+"");
         if (noteId != -1) {
             getLoaderManager().initLoader(
                     0, // Идентификатор загрузчика
@@ -98,7 +86,6 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.i("countEmtyText___", countEmtyTextNameDevice+"");
                 if (s.toString().trim().length() > 0) {
                     countEmtyTextNameDevice=1;
                 } else {
@@ -119,7 +106,6 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.i("countEmtyText___", countEmtyTextNameDriver+"");
                 if (s.toString().trim().length() > 0) {
                     countEmtyTextNameDriver=1;
                 } else {
@@ -140,7 +126,6 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.i("countEmtyText___", countEmtyTextNumberPhone+"");
                 if (s.toString().trim().length() > 0) {
                     countEmtyTextNumberPhone=1;
                 } else {
@@ -169,34 +154,6 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
         });
     }
 
-
-    //    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        super.onCreateOptionsMenu(menu);
-//
-//        getMenuInflater().inflate(R.menu.create_note, menu);
-//
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                finish();
-//
-//                return true;
-//
-//            case R.id.action_save:
-//                saveNote();
-//
-//                return true;
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
     /**
      * Метод для сохранения заметок
      */
@@ -211,24 +168,6 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
 
 
         boolean isCorrect = true;
-
-//        if (TextUtils.isEmpty(title)) {
-//            isCorrect = false;
-//
-//            titleTil.setError(getString(R.string.error_empty_field));
-//            titleTil.setErrorEnabled(true);
-//        } else {
-//            titleTil.setErrorEnabled(false);
-//        }
-//
-//        if (TextUtils.isEmpty(text)) {
-//            isCorrect = false;
-//
-//            textTil.setError(getString(R.string.error_empty_field));
-//            textTil.setErrorEnabled(true);
-//        } else {
-//            textTil.setErrorEnabled(false);
-//        }
 
         if (isCorrect) {
             long currentTime = System.currentTimeMillis();
@@ -249,7 +188,6 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
             }
 
             contentValues.put(NotesContract.Notes.COLUMN_UPDATED_TS, currentTime);
-            Log.d("Testing#", noteId+"");
             if (noteId == -1) {
                 getContentResolver().insert(NotesContract.Notes.URI, contentValues);
             } else {
@@ -278,7 +216,6 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        Log.i("Test", "Load finished: " + cursor.getCount());
 
         cursor.setNotificationUri(getContentResolver(), NotesContract.Notes.URI);
 

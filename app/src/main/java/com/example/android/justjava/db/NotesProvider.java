@@ -32,7 +32,6 @@ public class NotesProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         notesDbHelper = new NotesDbHelper(getContext());
-        Log.d("4445R","4445R"+getContext().getDatabasePath(NotesContract.DB_NAME).getAbsolutePath());
 
         return true;
     }

@@ -19,10 +19,6 @@ public class AddNewDeviceActivity extends AppCompatActivity {
     private ImageView imageButtonConnect;
     private Intent intent;
 
-    public static String getNumDevise() {
-        return numDevise;
-    }
-
     private static String numDevise;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

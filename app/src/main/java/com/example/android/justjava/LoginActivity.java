@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private Toast toast;
 
     private LoginActivity mServer = null;
-    private static String string = "done";
+    private static String string = "";
     private static String string1;
     private Thread thread1;
     private Socket mSocket = null;
@@ -70,24 +70,38 @@ public class LoginActivity extends AppCompatActivity {
                 if (hasConnection(LoginActivity.this)) {
 
                     autorization = editTextIdDevice.getText().toString() + editTextPassDevice.getText().toString();
-                    if (autorization.equals("a1")) {
-
-                        if (thread1.getState().equals(Thread.State.NEW)) {
-                            thread1.start();
-                        }
-                        while (true) {
-                            if (string.equals("gone")) {
-                                imageView.setImageResource(R.drawable.button_create_push);
-                                mServer.closeConnection();
-                                startActivity(intent);
-                                break;
+                    if (thread1.getState().equals(Thread.State.NEW)) {
+                        thread1.start();
+                    }
+                    while (true) {
+                        long date = System.currentTimeMillis() + 500;
+                        while (date > System.currentTimeMillis()) {
+                            if (date == System.currentTimeMillis()) {
+                                if (string != "") {
+                                    if (autorization.equals(string)) {
+                                        imageView.setImageResource(R.drawable.button_create_push);
+                                        mServer.closeConnection();
+                                        startActivity(intent);
+                                        break;
+                                    }
+                                    else {
+                                        toast.setText("Неправильный логин или пароль");
+                                        toast.setGravity(Gravity.CENTER, 0, 0);
+                                        toast.show();
+                                        break;
+                                    }
+                                }
+                                else {
+                                    toast.setText("Сервер не отвечает");
+                                    toast.setGravity(Gravity.CENTER, 0, 0);
+                                    toast.show();
+                                    break;
+                                }
                             }
                         }
-                    } else {
-                        toast.setText("Неправильный логин или пароль");
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+break;
                     }
+
                 }
                 else {
                     toast.setText("Нет подключения к интернету");
