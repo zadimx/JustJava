@@ -31,6 +31,7 @@ import com.example.android.justjava.db.NotesDbHelper;
 import com.example.android.justjava.map.MainActivity;
 import com.example.android.justjava.ui.NotesAdapter;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -363,7 +364,6 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void sendData(byte[] data) throws Exception {
 
         /* Проверяем сокет. Если он не создан или закрыт, то выдаем исключение */
@@ -372,17 +372,19 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         }
 
         /* Отправка данных */
-        byte[] buffer = new byte[1024 * 1024];
+        byte[] buffer = new byte[1024 * 4];
         try {
             mSocket.getOutputStream().write(data);
             mSocket.getOutputStream().flush();
         } catch (IOException e) {
             throw new Exception("Невозможно отправить данные: " + e.getMessage());
         }
-        try (ByteArrayInputStream bis = new ByteArrayInputStream(buffer);
-             ObjectInputStream ois =  new ObjectInputStream(bis)) {
-            arrayAxisTemp = (HashMap<String, String[]>) ois.readObject();
-            System.out.println("input: " + arrayAxisTemp.size());
+        ObjectInputStream in = null;
+        try {
+            in = new ObjectInputStream(new BufferedInputStream(mSocket.getInputStream()));
+            arrayAxisTemp = (HashMap<String, String[]>)in.readObject();
+        } catch ( IOException ex ) {
+            ex.printStackTrace();
         }
 //            ObjectInputStream object = new ObjectInputStream(mSocket.getInputStream());
 //            arrayAxisTemp = (HashMap<String, String[]>) object.readObject();
