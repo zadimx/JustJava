@@ -4,6 +4,7 @@ import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -1210,13 +1212,35 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 return true;
 
             case R.id.delete_devices:
+                AlertDialog.Builder builder = new AlertDialog.Builder(DbActivity.this);
+                builder.setTitle("Важное сообщение!")
+                        .setMessage("Вы действительно хотите удалить все устройства?")
+                        .setCancelable(false)
+                        .setPositiveButton("Да",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
 
-                for (int i = 0; i<30;i++) {
-                    getContentResolver().delete(ContentUris.withAppendedId(NotesContract.Notes.URI, i),
-                            null,
-                            null);
-                }
+                                        for (int i = 0; i<30;i++) {
+                                            getContentResolver().delete(ContentUris.withAppendedId(NotesContract.Notes.URI, i),
+                                                    null,
+                                                    null);
+                                        }
+
+                                    }
+                                })
+                        .setNegativeButton("Нет",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        dialog.cancel();
+
+                                    }
+                        });
+
+                AlertDialog alert = builder.create();
+                alert.show();
                 return true;
+
 
             default:
                 return super.onOptionsItemSelected(item);
