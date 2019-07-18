@@ -31,7 +31,10 @@ import com.example.android.justjava.db.NotesDbHelper;
 import com.example.android.justjava.map.MainActivity;
 import com.example.android.justjava.ui.NotesAdapter;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -46,6 +49,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     private DbActivity mServer = null;
     private Socket mSocket = null;
 
+    private ObjectInputStream object = null;
 
 
     private static String numberTable = LoginActivity.getString()+"db";
@@ -254,6 +258,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.db_activity_main);
+
         intent = new Intent(this, CreateNoteActivity.class);
         notesAdapter = new NotesAdapter(null, onNoteClickListener, onNoteClickListenerPhone, onNoteClickListenerMap);
 
@@ -319,6 +324,9 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     protected void onDestroy() {
         super.onDestroy();
         flagDestroyed = true;
+        mServer.closeConnection();
+        LoginActivity.setString("");
+        thread1.interrupt();
     }
 
     public void openConnection() throws Exception {
@@ -355,6 +363,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void sendData(byte[] data) throws Exception {
 
         /* Проверяем сокет. Если он не создан или закрыт, то выдаем исключение */
@@ -363,12 +372,20 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         }
 
         /* Отправка данных */
-        byte[] buffer = new byte[1024 * 4];
+        byte[] buffer = new byte[1024 * 1024];
         try {
             mSocket.getOutputStream().write(data);
             mSocket.getOutputStream().flush();
-            arrayAxisTemp = (HashMap<String, String[]>) new ObjectInputStream(mSocket.getInputStream()).readObject();
-
+        } catch (IOException e) {
+            throw new Exception("Невозможно отправить данные: " + e.getMessage());
+        }
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(buffer);
+             ObjectInputStream ois =  new ObjectInputStream(bis)) {
+            arrayAxisTemp = (HashMap<String, String[]>) ois.readObject();
+            System.out.println("input: " + arrayAxisTemp.size());
+        }
+//            ObjectInputStream object = new ObjectInputStream(mSocket.getInputStream());
+//            arrayAxisTemp = (HashMap<String, String[]>) object.readObject();
             for (Map.Entry x: arrayAxisTemp.entrySet()
                  ) {
 
@@ -1138,9 +1155,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 //
 
 
-        } catch (IOException e) {
-            throw new Exception("Невозможно отправить данные: " + e.getMessage());
-        }
+
     }
 
 
@@ -1149,6 +1164,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     public void onBackPressed() {
         super.onBackPressed();
         mServer.closeConnection();
+        LoginActivity.setString("");
         thread1.interrupt();
         finish();
     }

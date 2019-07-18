@@ -45,6 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         return string;
     }
 
+    public static void setString(String string) {
+        LoginActivity.string = string;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,63 +74,21 @@ public class LoginActivity extends AppCompatActivity {
                 if (hasConnection(LoginActivity.this)) {
 
                     autorization = editTextIdDevice.getText().toString() + editTextPassDevice.getText().toString();
-                    if (thread1.getState().equals(Thread.State.NEW)) {
-                        thread1.start();
-                    }
-                    while (true) {
-                        long date = System.currentTimeMillis() + 500;
-                        while (date > System.currentTimeMillis()) {
-                            if (date == System.currentTimeMillis()) {
-                                if (string != "") {
-                                    if (autorization.equals(string)) {
-                                        imageView.setImageResource(R.drawable.button_create_push);
-                                        mServer.closeConnection();
-                                        startActivity(intent);
-                                        break;
-                                    }
-                                    else {
-                                        toast.setText("Неправильный логин или пароль");
-                                        toast.setGravity(Gravity.CENTER, 0, 0);
-                                        toast.show();
-                                        break;
-                                    }
-                                }
-                                else {
-                                    toast.setText("Сервер не отвечает");
-                                    toast.setGravity(Gravity.CENTER, 0, 0);
-                                    toast.show();
-                                    break;
-                                }
-                            }
-                        }
-break;
-                    }
-
-                }
-                else {
-                    toast.setText("Нет подключения к интернету");
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
-            }
-        });
-
-
-            thread1 =  new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
 
 //                    mServer.openConnection();
 
-                    try {
-                        try {
-                            mServer.openConnection();
-                            mServer.sendData(autorization.getBytes());
+                                try {
+                                    try {
+                                        mServer.openConnection();
+                                        mServer.sendData(autorization.getBytes());
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
 //                        while (true) {
 //
 //                            mServer.sendData(String.valueOf(editTextIdDevice.getText()).getBytes());
@@ -140,9 +102,9 @@ break;
 //////                                }
 ////                            }
 //                        }
-                    } catch (Exception e) {
+                                } catch (Exception e) {
 
-                    }
+                                }
                     /*
                         устанавливаем активные кнопки для отправки данных
                         и закрытия соедиения. Все данные по обновлению интерфеса должны
@@ -152,11 +114,47 @@ break;
 
 //                            tree.start();
 //                            choose.start();
-                } catch (Exception e) {
-                    mServer = null;
+                            } catch (Exception e) {
+                                mServer = null;
+                            }
+                        }
+                    }).start();
+
+
+                        Log.d("FFF4", "ASD3 " + string);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                        if (autorization.equals(string)) {
+                            Log.d("FFF4", "ASD4" + " " + autorization + " " + string);
+                            imageView.setImageResource(R.drawable.button_create_push);
+                            mServer.closeConnection();
+                            startActivity(intent);
+                        } else if (string.isEmpty()){
+                            Log.d("FFF4", "ASD5");
+                            toast.setText("Сервер не отвечает");
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                        else {
+                            Log.d("FFF4", "ASD5");
+                            string="";
+                            toast.setText("Неправильный логин или пароль");
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                    }
+
+                else {
+                    toast.setText("Нет подключения к интернету");
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
             }
         });
+
     }
 
     public static boolean hasConnection(final Context context)
