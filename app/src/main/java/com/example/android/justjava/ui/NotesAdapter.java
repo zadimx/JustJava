@@ -46,7 +46,7 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
 //        String axis1 = cursor.getString(axis1ColumnIndex);
         if (a[0] != null && a[0].matches("-?\\d+")) {
             if (Integer.parseInt(a[0]) <= 0 ) {
-                viewHolder.axis1.setText(0+" т");
+                viewHolder.axis1.setText(0+" кг");
             }
             else if (Integer.parseInt(a[0]) > 0 && a[0].matches("-?\\d+")) {
 //                viewHolder.axis1.setText(Integer.parseInt(axis1)+" кг");
@@ -59,7 +59,7 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
 //        String axis2 = cursor.getString(axis2ColumnIndex);
         if (a[1] != null && a[1].matches("-?\\d+")) {
             if (Integer.parseInt(a[1]) <= 0) {
-                viewHolder.axis2.setText(0+" т");
+                viewHolder.axis2.setText(0+" кг");
             }
             else if (Integer.parseInt(a[1]) > 0 && a[1].matches("-?\\d+")) {
 //                viewHolder.axis2.setText(Integer.parseInt(axis2)+" кг");
