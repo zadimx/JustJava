@@ -226,6 +226,7 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
 
         int numberPhoneColumnIndex = cursor.getColumnIndexOrThrow(NotesContract.Notes.COLUMN_NUMBER_PHONE);
         String namberPhone = cursor.getString(numberPhoneColumnIndex);
+        namberPhone = namberPhone.replaceAll("\\D+","");
         viewHolder.icon_phone.setTag(Long.parseLong(namberPhone));
 //        viewHolder.axis4.setText(axis4);
 
