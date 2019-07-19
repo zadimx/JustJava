@@ -44,6 +44,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -181,6 +182,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     private static String fullT20[] = new String[7];
 
 
+    private static int countDevice=0;
 
     private static HashMap<String, String[]> arrayAxisTemp = new HashMap<>();
 
@@ -404,11 +406,16 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         }
 //            ObjectInputStream object = new ObjectInputStream(mSocket.getInputStream());
 //            arrayAxisTemp = (HashMap<String, String[]>) object.readObject();
+        if (Arrays.asList(numberDevice).contains(null)) {
+            for (Map.Entry x : arrayAxisTemp.entrySet()) {
+                numberDevice[countDevice] = ((String[]) x.getValue())[6];
+                countDevice++;
+            }
+        }
             for (Map.Entry x: arrayAxisTemp.entrySet()
                  ) {
 
-                if (x.getKey().equals("1t")) {
-                    numberDevice[0]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[0])) {
                     fullT1 = (String[]) x.getValue();
                     for (int i = 0; i < t1.length; i++) {
                         t1[i] = fullT1[i];
@@ -445,8 +452,8 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                         }
                     }
                 }
-                if (x.getKey().equals("2t")) {
-                    numberDevice[1]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[1])) {
+
                     fullT2 = (String[]) x.getValue();
                     for (int i = 0; i < t2.length; i++) {
                         t2[i] = fullT2[i];
@@ -484,8 +491,8 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("3t")) {
-                    numberDevice[2]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[2])) {
+
                     fullT3 = (String[]) x.getValue();
                     for (int i = 0; i < t3.length; i++) {
                         t3[i] = fullT3[i];
@@ -523,8 +530,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("4t")) {
-                    numberDevice[3]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[3])) {
                     fullT4 = (String[]) x.getValue();
                     for (int i = 0; i < t4.length; i++) {
                         t4[i] = fullT4[i];
@@ -562,8 +568,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("5t")) {
-                    numberDevice[4]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[4])) {
                     fullT5 = (String[]) x.getValue();
                     for (int i = 0; i < t5.length; i++) {
                         t5[i] = fullT5[i];
@@ -601,7 +606,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("6t")) {
+                if (x.getKey().equals(numberDevice[5])) {
                     numberDevice[5]= ((String[]) x.getValue())[6];
                     fullT6 = (String[]) x.getValue();
                     for (int i = 0; i < t6.length; i++) {
@@ -640,8 +645,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("7t")) {
-                    numberDevice[6]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[6])) {
                     fullT7 = (String[]) x.getValue();
                     for (int i = 0; i < t7.length; i++) {
                         t7[i] = fullT7[i];
@@ -679,8 +683,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("8t")) {
-                    numberDevice[7]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[7])) {
                     fullT8 = (String[]) x.getValue();
                     for (int i = 0; i < t8.length; i++) {
                         t8[i] = fullT8[i];
@@ -718,8 +721,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("9t")) {
-                    numberDevice[8]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[8])) {
                     fullT9 = (String[]) x.getValue();
                     for (int i = 0; i < t9.length; i++) {
                         t9[i] = fullT9[i];
@@ -757,8 +759,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("10t")) {
-                    numberDevice[9]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[9])) {
                     fullT10 = (String[]) x.getValue();
                     for (int i = 0; i < t10.length; i++) {
                         t10[i] = fullT10[i];
@@ -796,8 +797,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("11t")) {
-                    numberDevice[10]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[10])) {
                     fullT11 = (String[]) x.getValue();
                     for (int i = 0; i < t11.length; i++) {
                         t11[i] = fullT11[i];
@@ -836,8 +836,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
 
-                if (x.getKey().equals("12t")) {
-                    numberDevice[11]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[11])) {
                     fullT12 = (String[]) x.getValue();
                     for (int i = 0; i < t12.length; i++) {
                         t12[i] = fullT12[i];
@@ -875,8 +874,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("13t")) {
-                    numberDevice[12]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[12])) {
                     fullT13 = (String[]) x.getValue();
                     for (int i = 0; i < t13.length; i++) {
                         t13[i] = fullT13[i];
@@ -914,8 +912,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("14t")) {
-                    numberDevice[13]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[13])) {
                     fullT14 = (String[]) x.getValue();
                     for (int i = 0; i < t14.length; i++) {
                         t14[i] = fullT14[i];
@@ -953,8 +950,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("15t")) {
-                    numberDevice[14]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[14])) {
                     fullT15 = (String[]) x.getValue();
                     for (int i = 0; i < t15.length; i++) {
                         t15[i] = fullT15[i];
@@ -992,8 +988,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("16t")) {
-                    numberDevice[15]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[15])) {
                     fullT16 = (String[]) x.getValue();
                     for (int i = 0; i < t16.length; i++) {
                         t16[i] = fullT16[i];
@@ -1031,8 +1026,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("17t")) {
-                    numberDevice[16]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[16])) {
                     fullT17 = (String[]) x.getValue();
                     for (int i = 0; i < t17.length; i++) {
                         t17[i] = fullT17[i];
@@ -1070,8 +1064,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("18t")) {
-                    numberDevice[17]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[17])) {
                     fullT18 = (String[]) x.getValue();
                     for (int i = 0; i < t18.length; i++) {
                         t18[i] = fullT18[i];
@@ -1109,8 +1102,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("19t")) {
-                    numberDevice[18]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[18])) {
                     fullT19 = (String[]) x.getValue();
                     for (int i = 0; i < t19.length; i++) {
                         t19[i] = fullT19[i];
@@ -1148,8 +1140,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
 
-                if (x.getKey().equals("20t")) {
-                    numberDevice[19]= ((String[]) x.getValue())[6];
+                if (x.getKey().equals(numberDevice[19])) {
                     fullT20 = (String[]) x.getValue();
                     for (int i = 0; i < t20.length; i++) {
                         t20[i] = fullT20[i];
