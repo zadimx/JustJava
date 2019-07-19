@@ -60,6 +60,11 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
     private Toast toast;
 
+    public static String[] getNumberDevice() {
+        return numberDevice;
+    }
+
+    private static String numberDevice[] = new String[20];
     public static double[] lat = new double[20];
     public static double[] longit = new double[20];
 
@@ -107,73 +112,81 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
     private Thread thread1;
 
-    private NotesAdapter notesAdapter;
+    public static NotesAdapter getNotesAdapter() {
+        return notesAdapter;
+    }
+
+    private static NotesAdapter notesAdapter;
 
 
 
     private static String t1[] = new String[4];
-    private static String fullT1[] = new String[6];
+    private static String fullT1[] = new String[7];
 
     private static String t2[] = new String[4];
-    private static String fullT2[] = new String[6];
+    private static String fullT2[] = new String[7];
 
     private static String t3[] = new String[4];
-    private static String fullT3[] = new String[6];
+    private static String fullT3[] = new String[7];
 
     private static String t4[] = new String[4];
-    private static String fullT4[] = new String[6];
+    private static String fullT4[] = new String[7];
 
     private static String t5[] = new String[4];
-    private static String fullT5[] = new String[6];
+    private static String fullT5[] = new String[7];
 
     private static String t6[] = new String[4];
-    private static String fullT6[] = new String[6];
+    private static String fullT6[] = new String[7];
 
     private static String t7[] = new String[4];
-    private static String fullT7[] = new String[6];
+    private static String fullT7[] = new String[7];
 
     private static String t8[] = new String[4];
-    private static String fullT8[] = new String[6];
+    private static String fullT8[] = new String[7];
 
     private static String t9[] = new String[4];
-    private static String fullT9[] = new String[6];
+    private static String fullT9[] = new String[7];
 
     private static String t10[] = new String[4];
-    private static String fullT10[] = new String[6];
+    private static String fullT10[] = new String[7];
 
     private static String t11[] = new String[4];
-    private static String fullT11[] = new String[6];
+    private static String fullT11[] = new String[7];
 
     private static String t12[] = new String[4];
-    private static String fullT12[] = new String[6];
+    private static String fullT12[] = new String[7];
 
     private static String t13[] = new String[4];
-    private static String fullT13[] = new String[6];
+    private static String fullT13[] = new String[7];
 
     private static String t14[] = new String[4];
-    private static String fullT14[] = new String[6];
+    private static String fullT14[] = new String[7];
 
     private static String t15[] = new String[4];
-    private static String fullT15[] = new String[6];
+    private static String fullT15[] = new String[7];
 
     private static String t16[] = new String[4];
-    private static String fullT16[] = new String[6];
+    private static String fullT16[] = new String[7];
 
     private static String t17[] = new String[4];
-    private static String fullT17[] = new String[6];
+    private static String fullT17[] = new String[7];
 
     private static String t18[] = new String[4];
-    private static String fullT18[] = new String[6];
+    private static String fullT18[] = new String[7];
 
     private static String t19[] = new String[4];
-    private static String fullT19[] = new String[6];
+    private static String fullT19[] = new String[7];
 
     private static String t20[] = new String[4];
-    private static String fullT20[] = new String[6];
+    private static String fullT20[] = new String[7];
 
 
 
     private static HashMap<String, String[]> arrayAxisTemp = new HashMap<>();
+
+    public static HashMap<String, String[]> getArrayAxisTemp() {
+        return arrayAxisTemp;
+    }
 
     public static String[] getT1() {
         return t1;
@@ -275,6 +288,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(notesAdapter);
 //        notesAdapter.notifyDataSetChanged();
+
 
         toast = Toast.makeText(getApplicationContext(),
                 "Вы больше не имеете устройств.",
@@ -394,12 +408,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                  ) {
 
                 if (x.getKey().equals("1t")) {
+                    numberDevice[0]= ((String[]) x.getValue())[6];
                     fullT1 = (String[]) x.getValue();
                     for (int i = 0; i < t1.length; i++) {
                         t1[i] = fullT1[i];
                     }
 
-                    for (int j = 4; j < fullT1.length && fullT1[j] != null; j++) {
+                    for (int j = 4; j < fullT1.length-1 && fullT1[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT1[j].split("\\.");
                             String str = "";
@@ -431,12 +446,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
                 if (x.getKey().equals("2t")) {
+                    numberDevice[1]= ((String[]) x.getValue())[6];
                     fullT2 = (String[]) x.getValue();
                     for (int i = 0; i < t2.length; i++) {
                         t2[i] = fullT2[i];
                     }
 
-                    for (int j = 4; j < fullT2.length && fullT2[j] != null; j++) {
+                    for (int j = 4; j < fullT2.length-1 && fullT2[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT2[j].split("\\.");
                             String str = "";
@@ -469,12 +485,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("3t")) {
+                    numberDevice[2]= ((String[]) x.getValue())[6];
                     fullT3 = (String[]) x.getValue();
                     for (int i = 0; i < t3.length; i++) {
                         t3[i] = fullT3[i];
                     }
 
-                    for (int j = 4; j < fullT3.length && fullT3[j] != null; j++) {
+                    for (int j = 4; j < fullT3.length-1 && fullT3[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT3[j].split("\\.");
                             String str = "";
@@ -507,12 +524,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("4t")) {
+                    numberDevice[3]= ((String[]) x.getValue())[6];
                     fullT4 = (String[]) x.getValue();
                     for (int i = 0; i < t4.length; i++) {
                         t4[i] = fullT4[i];
                     }
 
-                    for (int j = 4; j < fullT4.length && fullT4[j] != null; j++) {
+                    for (int j = 4; j < fullT4.length-1 && fullT4[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT4[j].split("\\.");
                             String str = "";
@@ -545,12 +563,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("5t")) {
+                    numberDevice[4]= ((String[]) x.getValue())[6];
                     fullT5 = (String[]) x.getValue();
                     for (int i = 0; i < t5.length; i++) {
                         t5[i] = fullT5[i];
                     }
 
-                    for (int j = 4; j < fullT5.length && fullT5[j] != null; j++) {
+                    for (int j = 4; j < fullT5.length-1 && fullT5[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT5[j].split("\\.");
                             String str = "";
@@ -583,12 +602,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("6t")) {
+                    numberDevice[5]= ((String[]) x.getValue())[6];
                     fullT6 = (String[]) x.getValue();
                     for (int i = 0; i < t6.length; i++) {
                         t6[i] = fullT6[i];
                     }
 
-                    for (int j = 4; j < fullT6.length && fullT6[j] != null; j++) {
+                    for (int j = 4; j < fullT6.length-1 && fullT6[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT6[j].split("\\.");
                             String str = "";
@@ -621,12 +641,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("7t")) {
+                    numberDevice[6]= ((String[]) x.getValue())[6];
                     fullT7 = (String[]) x.getValue();
                     for (int i = 0; i < t7.length; i++) {
                         t7[i] = fullT7[i];
                     }
 
-                    for (int j = 4; j < fullT7.length && fullT7[j] != null; j++) {
+                    for (int j = 4; j < fullT7.length-1 && fullT7[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT7[j].split("\\.");
                             String str = "";
@@ -659,12 +680,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("8t")) {
+                    numberDevice[7]= ((String[]) x.getValue())[6];
                     fullT8 = (String[]) x.getValue();
                     for (int i = 0; i < t8.length; i++) {
                         t8[i] = fullT8[i];
                     }
 
-                    for (int j = 4; j < fullT8.length && fullT8[j] != null; j++) {
+                    for (int j = 4; j < fullT8.length-1 && fullT8[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT8[j].split("\\.");
                             String str = "";
@@ -697,12 +719,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("9t")) {
+                    numberDevice[8]= ((String[]) x.getValue())[6];
                     fullT9 = (String[]) x.getValue();
                     for (int i = 0; i < t9.length; i++) {
                         t9[i] = fullT9[i];
                     }
 
-                    for (int j = 4; j < fullT9.length && fullT9[j] != null; j++) {
+                    for (int j = 4; j < fullT9.length-1 && fullT9[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT9[j].split("\\.");
                             String str = "";
@@ -735,12 +758,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("10t")) {
+                    numberDevice[9]= ((String[]) x.getValue())[6];
                     fullT10 = (String[]) x.getValue();
                     for (int i = 0; i < t10.length; i++) {
                         t10[i] = fullT10[i];
                     }
 
-                    for (int j = 4; j < fullT10.length && fullT10[j] != null; j++) {
+                    for (int j = 4; j < fullT10.length-1 && fullT10[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT10[j].split("\\.");
                             String str = "";
@@ -773,12 +797,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("11t")) {
+                    numberDevice[10]= ((String[]) x.getValue())[6];
                     fullT11 = (String[]) x.getValue();
                     for (int i = 0; i < t11.length; i++) {
                         t11[i] = fullT11[i];
                     }
 
-                    for (int j = 4; j < fullT11.length && fullT11[j] != null; j++) {
+                    for (int j = 4; j < fullT11.length-1 && fullT11[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT11[j].split("\\.");
                             String str = "";
@@ -812,12 +837,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
 
                 if (x.getKey().equals("12t")) {
+                    numberDevice[11]= ((String[]) x.getValue())[6];
                     fullT12 = (String[]) x.getValue();
                     for (int i = 0; i < t12.length; i++) {
                         t12[i] = fullT12[i];
                     }
 
-                    for (int j = 4; j < fullT12.length && fullT12[j] != null; j++) {
+                    for (int j = 4; j < fullT12.length-1 && fullT12[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT12[j].split("\\.");
                             String str = "";
@@ -850,12 +876,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("13t")) {
+                    numberDevice[12]= ((String[]) x.getValue())[6];
                     fullT13 = (String[]) x.getValue();
                     for (int i = 0; i < t13.length; i++) {
                         t13[i] = fullT13[i];
                     }
 
-                    for (int j = 4; j < fullT13.length && fullT13[j] != null; j++) {
+                    for (int j = 4; j < fullT13.length-1 && fullT13[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT13[j].split("\\.");
                             String str = "";
@@ -888,12 +915,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("14t")) {
+                    numberDevice[13]= ((String[]) x.getValue())[6];
                     fullT14 = (String[]) x.getValue();
                     for (int i = 0; i < t14.length; i++) {
                         t14[i] = fullT14[i];
                     }
 
-                    for (int j = 4; j < fullT14.length && fullT14[j] != null; j++) {
+                    for (int j = 4; j < fullT14.length-1 && fullT14[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT14[j].split("\\.");
                             String str = "";
@@ -926,12 +954,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("15t")) {
+                    numberDevice[14]= ((String[]) x.getValue())[6];
                     fullT15 = (String[]) x.getValue();
                     for (int i = 0; i < t15.length; i++) {
                         t15[i] = fullT15[i];
                     }
 
-                    for (int j = 4; j < fullT15.length && fullT15[j] != null; j++) {
+                    for (int j = 4; j < fullT15.length-1 && fullT15[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT15[j].split("\\.");
                             String str = "";
@@ -964,12 +993,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("16t")) {
+                    numberDevice[15]= ((String[]) x.getValue())[6];
                     fullT16 = (String[]) x.getValue();
                     for (int i = 0; i < t16.length; i++) {
                         t16[i] = fullT16[i];
                     }
 
-                    for (int j = 4; j < fullT16.length && fullT16[j] != null; j++) {
+                    for (int j = 4; j < fullT16.length-1 && fullT16[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT16[j].split("\\.");
                             String str = "";
@@ -1002,12 +1032,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("17t")) {
+                    numberDevice[16]= ((String[]) x.getValue())[6];
                     fullT17 = (String[]) x.getValue();
                     for (int i = 0; i < t17.length; i++) {
                         t17[i] = fullT17[i];
                     }
 
-                    for (int j = 4; j < fullT17.length && fullT17[j] != null; j++) {
+                    for (int j = 4; j < fullT17.length-1 && fullT17[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT17[j].split("\\.");
                             String str = "";
@@ -1040,12 +1071,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("18t")) {
+                    numberDevice[17]= ((String[]) x.getValue())[6];
                     fullT18 = (String[]) x.getValue();
                     for (int i = 0; i < t18.length; i++) {
                         t18[i] = fullT18[i];
                     }
 
-                    for (int j = 4; j < fullT18.length && fullT18[j] != null; j++) {
+                    for (int j = 4; j < fullT18.length-1 && fullT18[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT18[j].split("\\.");
                             String str = "";
@@ -1078,12 +1110,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("19t")) {
+                    numberDevice[18]= ((String[]) x.getValue())[6];
                     fullT19 = (String[]) x.getValue();
                     for (int i = 0; i < t19.length; i++) {
                         t19[i] = fullT19[i];
                     }
 
-                    for (int j = 4; j < fullT19.length && fullT19[j] != null; j++) {
+                    for (int j = 4; j < fullT19.length-1 && fullT19[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT19[j].split("\\.");
                             String str = "";
@@ -1116,12 +1149,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                 }
 
                 if (x.getKey().equals("20t")) {
+                    numberDevice[19]= ((String[]) x.getValue())[6];
                     fullT20 = (String[]) x.getValue();
                     for (int i = 0; i < t20.length; i++) {
                         t20[i] = fullT20[i];
                     }
 
-                    for (int j = 4; j < fullT20.length && fullT20[j] != null; j++) {
+                    for (int j = 4; j < fullT20.length-1 && fullT20[j] != null; j++) {
                         if (j==4) {
                             String[] f= fullT20[j].split("\\.");
                             String str = "";
@@ -1290,7 +1324,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         @Override
         public void onNoteClickPhone(final long noteId) {
 
-            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+getAppCategoryDetail())));
+            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+noteId)));
         }
 
     };

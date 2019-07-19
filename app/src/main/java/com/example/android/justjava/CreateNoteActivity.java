@@ -39,6 +39,7 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
     private EditText nameDeviceList;
     private EditText nameDriver;
     private EditText telephoneDriver;
+    private TextView idDevice;
 
     private ImageView addButtonDevice;
 
@@ -55,7 +56,13 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
         nameDriver = findViewById(R.id.nameDriver);
         telephoneDriver = findViewById(R.id.telephoneDriver);
         addButtonDevice = findViewById(R.id.addButtonDevice);
-
+        idDevice = findViewById(R.id.idDevice);
+        if (DbActivity.getNotesAdapter().getItemCount() == 0) {
+            idDevice.setText("Новое устройство: "+DbActivity.getNumberDevice()[0]);
+        }
+        else {
+            idDevice.setText("Новое устройство: "+DbActivity.getNumberDevice()[DbActivity.getNotesAdapter().getItemCount()]);
+        }
         noteId = getIntent().getLongExtra(EXTRA_NOTE_ID, -1);
         if (noteId != -1) {
             getLoaderManager().initLoader(
