@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.example.android.justjava.db.NotesContract;
 import com.example.android.justjava.db.NotesDbHelper;
+import com.example.android.justjava.log.TableLogActivity;
 import com.example.android.justjava.map.MainActivity;
 import com.example.android.justjava.ui.NotesAdapter;
 
@@ -185,6 +186,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     private static int countDevice=0;
 
     private static HashMap<String, String[]> arrayAxisTemp = new HashMap<>();
+
     private static HashMap<String, ArrayList<String>> arrayAxisTemp1 = new HashMap<>();
 
     public static HashMap<String, String[]> getArrayAxisTemp() {
@@ -1320,6 +1322,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         @Override
         public void onNoteClick(final long noteId) {
             numberTable = "hour";
+            startActivity(new Intent(DbActivity.this, TableLogActivity.class));
         }
     };
 
