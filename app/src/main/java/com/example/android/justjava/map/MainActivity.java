@@ -9,11 +9,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.android.justjava.DbActivity;
 import com.example.android.justjava.R;
+import com.example.android.justjava.log.LogAdapter;
+import com.example.android.justjava.log.TableLogActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -45,8 +48,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private final View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (view.getId() == R.id.currentLocationImageButton && googleMap != null && currentLocation != null)
-                MainActivity.this.animateCamera(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev",-1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
+            if (DbActivity.getFlagGPS() == "numDev") {
+                if (view.getId() == R.id.currentLocationImageButton && googleMap != null && currentLocation != null)
+                    MainActivity.this.animateCamera(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev",-1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
+            }
+            else if (DbActivity.getFlagGPS() == "timeDev") {
+                if (view.getId() == R.id.currentLocationImageButton && googleMap != null && currentLocation != null)
+                    MainActivity.this.animateCamera(new LatLng(LogAdapter.getLon()[getIntent().getIntExtra("timeDev", -1)], LogAdapter.getLat()[getIntent().getIntExtra("timeDev", -1)]));
+            }
         }
     };
     //Изменил
@@ -59,10 +68,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return;
             currentLocation = locationResult.getLastLocation();
             if (firstTimeFlag && googleMap != null) {
-                animateCamera(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev",-1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
+
+
+                if (DbActivity.getFlagGPS() == "numDev") {
+                        animateCamera(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev",-1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
+                }
+                else if (DbActivity.getFlagGPS() == "timeDev") {
+                    animateCamera(new LatLng(LogAdapter.getLon()[getIntent().getIntExtra("timeDev", -1)], LogAdapter.getLat()[getIntent().getIntExtra("timeDev", -1)]));
+                }
+
                 firstTimeFlag = false;
             }
-            showMarker(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev", -1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
+            if (DbActivity.getFlagGPS() == "numDev") {
+                showMarker(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev", -1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
+            }
+            else if (DbActivity.getFlagGPS() == "timeDev") {
+                showMarker(new LatLng(LogAdapter.getLon()[getIntent().getIntExtra("timeDev", -1)], LogAdapter.getLat()[getIntent().getIntExtra("timeDev", -1)]));
+            }
         }
     };
 

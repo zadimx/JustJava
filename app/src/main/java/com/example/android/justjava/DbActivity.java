@@ -53,6 +53,15 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
     private DbActivity mServer = null;
     private Socket mSocket = null;
+    private static String flagGPS;
+
+    public static String getFlagGPS() {
+        return flagGPS;
+    }
+
+    public static void setFlagGPS(String flagGPS) {
+        DbActivity.flagGPS = flagGPS;
+    }
 
     private ObjectInputStream object = null;
 
@@ -187,11 +196,6 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
     private static HashMap<String, String[]> arrayAxisTemp = new HashMap<>();
 
-    private static HashMap<String, ArrayList<String>> arrayAxisTemp1 = new HashMap<>();
-
-    public static HashMap<String, String[]> getArrayAxisTemp() {
-        return arrayAxisTemp;
-    }
 
     public static String[] getT1() {
         return t1;
@@ -287,7 +291,6 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         swipeRefreshLayout.setOnRefreshListener(onRefreshListener);
 
 
-
         mServer = new DbActivity();
         RecyclerView recyclerView = findViewById(R.id.notes_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -316,14 +319,15 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
             @Override
             public void run() {
                 try {
-                    mServer.openConnection();
+                        mServer.openConnection();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                while (true) {
-                    long date = System.currentTimeMillis()+500;
-                    while (date > System.currentTimeMillis()) {
-                        if (date == System.currentTimeMillis()) {
+//                while (true) {
+//                    long date = System.currentTimeMillis()+500;
+//                    while (date > System.currentTimeMillis()) {
+//                        if (date == System.currentTimeMillis()) {
                             try {
 
                                 mServer.sendData(numberTable.getBytes());
@@ -333,14 +337,15 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                             }
                         }
 
-                    }
-                    if (flagDestroyed) {
-                        break;
-                    }
-                }
-            }
+//                    }
+//                    if (flagDestroyed) {
+//                        break;
+//                    }
+//                }
+//            }
         });
     }
+
 
     @Override
     protected void onDestroy() {
@@ -355,7 +360,6 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
         /* Освобождаем ресурсы */
         closeConnection();
-
         try {
         /*
             Создаем новый сокет. Указываем на каком компютере и порту запущен наш процесс,
@@ -374,6 +378,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
             try {
                 mSocket.close();
+                flagDestroyed=true;
             } catch (IOException e) {
 
             } finally {
@@ -1187,14 +1192,6 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
         }
     }
-        else {
-            for (Map.Entry x :arrayAxisTemp.entrySet()
-            ) {
-                Log.d("###444", "####444" + " " + arrayAxisTemp.size()+" "+x.getKey()+" "+x.getValue()+" "+ ((ArrayList<String>) x.getValue()).size());
-            }
-
-
-        }
 
 
 //--------------------------------------------------------------------
@@ -1321,7 +1318,8 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     private final NotesAdapter.OnNoteClickListener onNoteClickListener = new NotesAdapter.OnNoteClickListener() {
         @Override
         public void onNoteClick(final long noteId) {
-            numberTable = "hour";
+            flagDestroyed = true;
+            mServer.closeConnection();
             startActivity(new Intent(DbActivity.this, TableLogActivity.class));
         }
     };
@@ -1341,7 +1339,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onNoteClickMap(final long noteId) {
-
+            DbActivity.setFlagGPS("numDev");
             Intent intent = new Intent(DbActivity.this, MainActivity.class);
             if (noteId == 1000) {
                 intent.putExtra("numDev", 0);
@@ -1436,7 +1434,6 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     private final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-
             numberTable = LoginActivity.getString()+"db";
             for (int j = 1; j <= notesAdapter.getItemCount(); j++) {
                 ContentValues contentValues = new ContentValues();
@@ -1450,7 +1447,37 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                         null,
                         null);
             }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("STATEDBAC", "STATEDBACsad   "+flagDestroyed);
+                    if (flagDestroyed) {
+                        try {
+                            flagDestroyed=false;
+                            mServer.openConnection();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+//                while (true) {
+//                    long date = System.currentTimeMillis()+500;
+//                    while (date > System.currentTimeMillis()) {
+//                        if (date == System.currentTimeMillis()) {
+                    try {
+
+                        mServer.sendData(numberTable.getBytes());
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
                 swipeRefreshLayout.setRefreshing(false);
+
         }
+
+
     };
 }

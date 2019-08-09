@@ -2,6 +2,7 @@ package com.example.android.justjava.log;
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,23 @@ import com.example.android.justjava.ui.CursorRecyclerAdapter;
 import com.example.android.justjava.ui.NotesAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     private final OnLogClickListener onLogClickListener;
 
+    private static double[] lat;
+    private static double[] lon;
+
+    public static double[] getLat() {
+        return lat;
+    }
+
+    public static double[] getLon() {
+        return lon;
+    }
 
     public LogAdapter(Cursor cursor, OnLogClickListener onLogClickListener) {
 //        super(cursor);
@@ -36,17 +48,29 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.axisLog1.setText(DbActivity.getArrayAxisTemp().get("axis1")[position]);
-        holder.axisLog2.setText(DbActivity.getArrayAxisTemp().get("axis2")[position]);
-        holder.axisLog3.setText(DbActivity.getArrayAxisTemp().get("axis3")[position]);
-        holder.axisLog4.setText(DbActivity.getArrayAxisTemp().get("axis4")[position]);
+        holder.itemView.setTag((long)position);
+        lat[position]=Double.parseDouble(TableLogActivity.getArrayAxisTemp1().get("latitude").get(position));
+        lon[position]=Double.parseDouble(TableLogActivity.getArrayAxisTemp1().get("longitude").get(position));
+        holder.axisLog1.setText(TableLogActivity.getArrayAxisTemp1().get("axis1").get(position));
+        holder.axisLog2.setText(TableLogActivity.getArrayAxisTemp1().get("axis2").get(position));
+        holder.axisLog3.setText(TableLogActivity.getArrayAxisTemp1().get("axis3").get(position));
+        holder.axisLog4.setText(TableLogActivity.getArrayAxisTemp1().get("axis4").get(position));
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy '\n' hh:mm:ss");
+        holder.dataTime.setText(formatForDateNow.format(new Date(Long.parseLong(TableLogActivity.getArrayAxisTemp1().get("time").get(position)))));
     }
 
 
     @Override
     public int getItemCount() {
-//        return DbActivity.getArrayAxisTemp().get("time").length;
-        return 0;
+
+        if (TableLogActivity.getArrayAxisTemp1().size() == 7) {
+            Log.d("#444555", "#444555 "+TableLogActivity.getArrayAxisTemp1().get("time").size());
+            lat = new double[TableLogActivity.getArrayAxisTemp1().get("time").size()];
+            lon = new double[TableLogActivity.getArrayAxisTemp1().get("time").size()];
+            return TableLogActivity.getArrayAxisTemp1().get("time").size();
+
+        }
+        else return 0;
     }
 
     /**

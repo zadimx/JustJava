@@ -12,5 +12,6 @@
     <color name="colorTextDisabled">#61000000</color>
     <color name="fonted">#e7e2e2</color>
     <color name="blue">#1E90FF</color>
+    <color name="yellow">#FFFFE0</color>
     <color name="milk">#e7e2e2</color>
 </resources>
