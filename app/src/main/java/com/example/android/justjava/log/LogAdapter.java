@@ -22,16 +22,6 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     private final OnLogClickListener onLogClickListener;
 
-    private static double[] lat;
-    private static double[] lon;
-
-    public static double[] getLat() {
-        return lat;
-    }
-
-    public static double[] getLon() {
-        return lon;
-    }
 
     public LogAdapter(Cursor cursor, OnLogClickListener onLogClickListener) {
 //        super(cursor);
@@ -48,15 +38,13 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.itemView.setTag((long)position);
-        lat[position]=Double.parseDouble(TableLogActivity.getArrayAxisTemp1().get("latitude").get(position));
-        lon[position]=Double.parseDouble(TableLogActivity.getArrayAxisTemp1().get("longitude").get(position));
-        holder.axisLog1.setText(TableLogActivity.getArrayAxisTemp1().get("axis1").get(position));
-        holder.axisLog2.setText(TableLogActivity.getArrayAxisTemp1().get("axis2").get(position));
-        holder.axisLog3.setText(TableLogActivity.getArrayAxisTemp1().get("axis3").get(position));
-        holder.axisLog4.setText(TableLogActivity.getArrayAxisTemp1().get("axis4").get(position));
-        SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy '\n' hh:mm:ss");
-        holder.dataTime.setText(formatForDateNow.format(new Date(Long.parseLong(TableLogActivity.getArrayAxisTemp1().get("time").get(position)))));
+            holder.itemView.setTag((long) position);
+            holder.axisLog1.setText(TableLogActivity.getArrayAxisTemp1().get("axis1").get(position));
+            holder.axisLog2.setText(TableLogActivity.getArrayAxisTemp1().get("axis2").get(position));
+            holder.axisLog3.setText(TableLogActivity.getArrayAxisTemp1().get("axis3").get(position));
+            holder.axisLog4.setText(TableLogActivity.getArrayAxisTemp1().get("axis4").get(position));
+            SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy '\n' hh:mm:ss");
+            holder.dataTime.setText(formatForDateNow.format(new Date(Long.parseLong(TableLogActivity.getArrayAxisTemp1().get("time").get(position)))));
     }
 
 
@@ -65,8 +53,6 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
         if (TableLogActivity.getArrayAxisTemp1().size() == 7) {
             Log.d("#444555", "#444555 "+TableLogActivity.getArrayAxisTemp1().get("time").size());
-            lat = new double[TableLogActivity.getArrayAxisTemp1().get("time").size()];
-            lon = new double[TableLogActivity.getArrayAxisTemp1().get("time").size()];
             return TableLogActivity.getArrayAxisTemp1().get("time").size();
 
         }

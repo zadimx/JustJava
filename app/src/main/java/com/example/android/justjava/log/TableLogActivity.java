@@ -30,6 +30,19 @@ import java.util.Map;
 public class TableLogActivity extends AppCompatActivity {
     private static HashMap<String, ArrayList<String>> arrayAxisTemp1 = new HashMap<>();
 
+    private static ArrayList<Double> lat = new ArrayList<>();
+    private static ArrayList<Double> lon = new ArrayList<>();
+
+    public static ArrayList<Double> getLat() {
+        return lat;
+    }
+
+    public static ArrayList<Double> getLon() {
+        return lon;
+    }
+
+
+
     private boolean flagDestroyed = false;
     public static HashMap<String, ArrayList<String>> getArrayAxisTemp1() {
         return arrayAxisTemp1;
@@ -77,7 +90,13 @@ public class TableLogActivity extends AppCompatActivity {
                             try {
 
                                 try {
-                                    mServer.sendData("hour".getBytes());
+                                    if (getIntent().getIntExtra("numDevLog",-1)==1) {
+                                        Log.d("a6666", "a6666 "+NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)]);
+                                        mServer.sendData(NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)-1].getBytes());
+                                    }
+                                    if (getIntent().getIntExtra("numDevLog",-1)==2) {
+                                        mServer.sendData(NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)-1].getBytes());
+                                    }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -109,7 +128,7 @@ public class TableLogActivity extends AppCompatActivity {
         public void onLogClick(long noteId) {
             DbActivity.setFlagGPS("timeDev");
             Intent intent = new Intent(TableLogActivity.this, MainActivity.class);
-            Log.d("a6666", "a6666 "+LogAdapter.getLat()[(int) noteId]+" "+LogAdapter.getLon()[(int) noteId]);
+            Log.d("a6666", "a6666 "+getLat().get((int) noteId)+" "+getLon().get((int) noteId));
             intent.putExtra("timeDev", (int) noteId);
             startActivity(intent);
 
@@ -178,12 +197,25 @@ public class TableLogActivity extends AppCompatActivity {
         }
 //        НАЧАЛО!-----------------------------------------------------------------------------
 
+        int position = 0;
             for (Map.Entry x :arrayAxisTemp1.entrySet()
             ) {
 
-                arrayAxisTemp1.put(String.valueOf(x.getKey()),((ArrayList<String>) x.getValue()));
-                Log.d("###444", "####444" + " " + arrayAxisTemp1.size()+" "+x.getKey()+" "+x.getValue()+" "+ ((ArrayList<String>) x.getValue()).size());
+//                arrayAxisTemp1.put(String.valueOf(x.getKey()),((ArrayList<String>) x.getValue()));
+                if (x.getKey().equals("latitude")) {
+                    for (int i = 0; i < ((ArrayList<String>) x.getValue()).size(); i++) {
+                        lat.add(Double.parseDouble(((ArrayList<String>) x.getValue()).get(i)));
+                    }
+                }
+                if (x.getKey().equals("longitude")) {
+                    for (int i = 0; i < ((ArrayList<String>) x.getValue()).size(); i++) {
+                        lon.add(Double.parseDouble(((ArrayList<String>) x.getValue()).get(i)));
+                    }
+                }
+//                position++;
             }
+        Log.d("###444", "####444" + " " + arrayAxisTemp1.size()+" "+lat.size()+" "+lon.size()+" ");
+
 
 
 
@@ -203,7 +235,16 @@ public class TableLogActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                                 try {
-                mServer.sendData("hour".getBytes());
+                                    lat.clear();
+                                    lon.clear();
+                                    Log.d("a6666", "a6666 "+getIntent().getIntExtra("numDevLog",-1));
+                                    if (getIntent().getIntExtra("numDevLog",-1)==1) {
+                                        Log.d("a6666", "a6666 "+NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)]);
+                                        mServer.sendData(NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)-1].getBytes());
+                                    }
+                                    if (getIntent().getIntExtra("numDevLog",-1)==2) {
+                                        mServer.sendData(NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)-1].getBytes());
+                                    }
             } catch (Exception e) {
                 e.printStackTrace();
             }

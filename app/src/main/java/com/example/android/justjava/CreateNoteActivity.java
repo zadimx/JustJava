@@ -40,7 +40,7 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
     private EditText nameDriver;
     private EditText telephoneDriver;
     private TextView idDevice;
-
+    private String[] numberDevices = {"1t", "2t", "3t", "4t", "5t","6t","7t","8t","9t","10t","11t", "12t", "13t", "14t", "15t","16t","17t","18t","19t","20t"};
     private ImageView addButtonDevice;
 
     private long noteId;
@@ -149,6 +149,7 @@ public class CreateNoteActivity extends AppCompatActivity implements LoaderManag
                     countEmtyTextNumberPhone=0;
                     countEmtyTextNameDriver=0;
                     countEmtyTextNameDevice=0;
+
                     saveNote();
                     finish();
                 }

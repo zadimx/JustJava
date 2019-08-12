@@ -295,7 +295,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         RecyclerView recyclerView = findViewById(R.id.notes_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(notesAdapter);
-//        notesAdapter.notifyDataSetChanged();
+        notesAdapter.notifyDataSetChanged();
 
 
         toast = Toast.makeText(getApplicationContext(),
@@ -1320,7 +1320,14 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         public void onNoteClick(final long noteId) {
             flagDestroyed = true;
             mServer.closeConnection();
-            startActivity(new Intent(DbActivity.this, TableLogActivity.class));
+            Intent intent = new Intent(DbActivity.this, TableLogActivity.class);
+
+
+            String[] strings = NotesAdapter.getListDevice()[(int)noteId-1].split("t",2);
+            Log.d("wwwww", "wwwww"+noteId+" "+strings[0]);
+
+            intent.putExtra("numDevLog", Integer.parseInt(strings[0]));
+            startActivity(intent);
         }
     };
 

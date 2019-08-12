@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
             else if (DbActivity.getFlagGPS() == "timeDev") {
                 if (view.getId() == R.id.currentLocationImageButton && googleMap != null && currentLocation != null)
-                    MainActivity.this.animateCamera(new LatLng(LogAdapter.getLon()[getIntent().getIntExtra("timeDev", -1)], LogAdapter.getLat()[getIntent().getIntExtra("timeDev", -1)]));
+                    MainActivity.this.animateCamera(new LatLng(TableLogActivity.getLon().get(getIntent().getIntExtra("timeDev", -1)), TableLogActivity.getLat().get(getIntent().getIntExtra("timeDev", -1))));
             }
         }
     };
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         animateCamera(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev",-1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
                 }
                 else if (DbActivity.getFlagGPS() == "timeDev") {
-                    animateCamera(new LatLng(LogAdapter.getLon()[getIntent().getIntExtra("timeDev", -1)], LogAdapter.getLat()[getIntent().getIntExtra("timeDev", -1)]));
+                    animateCamera(new LatLng(TableLogActivity.getLon().get(getIntent().getIntExtra("timeDev", -1)), TableLogActivity.getLat().get(getIntent().getIntExtra("timeDev", -1))));
                 }
 
                 firstTimeFlag = false;
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 showMarker(new LatLng(DbActivity.longit[getIntent().getIntExtra("numDev", -1)],DbActivity.lat[getIntent().getIntExtra("numDev", -1)]));
             }
             else if (DbActivity.getFlagGPS() == "timeDev") {
-                showMarker(new LatLng(LogAdapter.getLon()[getIntent().getIntExtra("timeDev", -1)], LogAdapter.getLat()[getIntent().getIntExtra("timeDev", -1)]));
+                showMarker(new LatLng(TableLogActivity.getLon().get(getIntent().getIntExtra("timeDev", -1)), TableLogActivity.getLat().get(getIntent().getIntExtra("timeDev", -1))));
             }
         }
     };
