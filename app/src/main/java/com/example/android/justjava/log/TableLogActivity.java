@@ -3,6 +3,8 @@ package com.example.android.justjava.log;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.DatabaseUtils;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TableLogActivity extends AppCompatActivity {
-    private static HashMap<String, ArrayList<String>> arrayAxisTemp1 = new HashMap<>();
+    private static HashMap<String, ArrayList<String>> arrayAxisTemp1 = null;
 
     private static ArrayList<Double> lat = new ArrayList<>();
     private static ArrayList<Double> lon = new ArrayList<>();
@@ -58,20 +60,25 @@ public class TableLogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_table_log);
-        RecyclerView recyclerView = findViewById(R.id.log_rv);
-
         mServer = new TableLogActivity();
-
         thread1.start();
 
-        swipeRefreshLayout = findViewById(R.id.log_refresh_rv);
-        swipeRefreshLayout.setOnRefreshListener(onRefreshListener);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        setContentView(R.layout.activity_table_log);
 
-        logAdapter = new LogAdapter(null, onLogClickListener);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(logAdapter);
-        logAdapter.notifyDataSetChanged();
+            RecyclerView recyclerView = findViewById(R.id.log_rv);
+
+            swipeRefreshLayout = findViewById(R.id.log_refresh_rv);
+            swipeRefreshLayout.setOnRefreshListener(onRefreshListener);
+
+            logAdapter = new LogAdapter(null, onLogClickListener);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(logAdapter);
+            logAdapter.notifyDataSetChanged();
     }
 
     {
@@ -88,14 +95,66 @@ public class TableLogActivity extends AppCompatActivity {
 //                    while (date > System.currentTimeMillis()) {
 //                        if (date == System.currentTimeMillis()) {
                             try {
-
                                 try {
-                                    if (getIntent().getIntExtra("numDevLog",-1)==1) {
-                                        Log.d("a6666", "a6666 "+NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)]);
-                                        mServer.sendData(NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)-1].getBytes());
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==1) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
                                     }
-                                    if (getIntent().getIntExtra("numDevLog",-1)==2) {
-                                        mServer.sendData(NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)-1].getBytes());
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==2) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==3) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==4) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==5) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==6) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==7) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==8) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==9) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==10) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==11) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==12) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==13) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==14) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==15) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==16) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==17) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==18) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==19) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==20) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -119,6 +178,7 @@ public class TableLogActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        arrayAxisTemp1=null;
         mServer.closeConnection();
         thread1.interrupt();
     }
@@ -227,6 +287,11 @@ public class TableLogActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
 
     private final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
@@ -237,22 +302,84 @@ public class TableLogActivity extends AppCompatActivity {
                                 try {
                                     lat.clear();
                                     lon.clear();
-                                    Log.d("a6666", "a6666 "+getIntent().getIntExtra("numDevLog",-1));
-                                    if (getIntent().getIntExtra("numDevLog",-1)==1) {
-                                        Log.d("a6666", "a6666 "+NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)]);
-                                        mServer.sendData(NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)-1].getBytes());
+                                    for (String x: NotesAdapter.getListDevice()
+                                         ) {
+                                        Log.d("a77777", "a77777 "+x);
                                     }
-                                    if (getIntent().getIntExtra("numDevLog",-1)==2) {
-                                        mServer.sendData(NotesAdapter.getListDevice()[getIntent().getIntExtra("numDevLog",-1)-1].getBytes());
+//                                    Log.d("a666677", "a666677 "+(getIntent().getIntArrayExtra("numDevLog")[0]+"t"));
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==1) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
                                     }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==2) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==3) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==4) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==5) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==6) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==7) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==8) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==9) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==10) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==11) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==12) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==13) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==14) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==15) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==16) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==17) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==18) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==19) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+                                    if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==20) {
+                                        mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
+                                    }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
                 }
             }).start();
+            new Handler().postDelayed(new Runnable() {
+                @Override public void run() {
+                    logAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }, 500);
 
-            logAdapter.notifyDataSetChanged();
-            swipeRefreshLayout.setRefreshing(false);
         }
     };
 

@@ -241,85 +241,60 @@ public class NotesAdapter extends CursorRecyclerAdapter<NotesAdapter.ViewHolder>
         }
         else if(id == 13){
             //ID ячейки view!!!!!!!!!
-            if (listDevice[(int)id-1]==null) {
                 listDevice[(int)id-1] = DbActivity.getNumberDevice()[(int)id-1];
-            }
-            else listDevice[(int)id-1] = (DbActivity.getNumberDevice()[(int)id-1]);
             viewHolder.itemView.setTag(id);
             Log.d("NumberDev","NumberDev "+DbActivity.getNumberDevice()[(int)id-1]);
             editAxis(viewHolder, DbActivity.getT13());
         }
         else if(id == 14){
             //ID ячейки view!!!!!!!!!
-            if (listDevice[(int)id-1]==null) {
                 listDevice[(int)id-1] = DbActivity.getNumberDevice()[(int)id-1];
-            }
-            else listDevice[(int)id-1] = (DbActivity.getNumberDevice()[(int)id-1]);
             viewHolder.itemView.setTag(id);
             Log.d("NumberDev","NumberDev "+DbActivity.getNumberDevice()[(int)id-1]);
             editAxis(viewHolder, DbActivity.getT14());
         }
         else if(id == 15){
             //ID ячейки view!!!!!!!!!
-            if (listDevice[(int)id-1]==null) {
                 listDevice[(int)id-1] = DbActivity.getNumberDevice()[(int)id-1];
-            }
-            else listDevice[(int)id-1] = (DbActivity.getNumberDevice()[(int)id-1]);
             viewHolder.itemView.setTag(id);
             Log.d("NumberDev","NumberDev "+DbActivity.getNumberDevice()[(int)id-1]);
             editAxis(viewHolder, DbActivity.getT15());
         }
         else if(id == 16){
             //ID ячейки view!!!!!!!!!
-            if (listDevice[(int)id-1]==null) {
                 listDevice[(int)id-1] = DbActivity.getNumberDevice()[(int)id-1];
-            }
-            else listDevice[(int)id-1] = (DbActivity.getNumberDevice()[(int)id-1]);
             viewHolder.itemView.setTag(id);
             Log.d("NumberDev","NumberDev "+DbActivity.getNumberDevice()[(int)id-1]);
             editAxis(viewHolder, DbActivity.getT16());
         }
         else if(id == 17){
             //ID ячейки view!!!!!!!!!
-            if (listDevice[(int)id-1]==null) {
                 listDevice[(int)id-1] = DbActivity.getNumberDevice()[(int)id-1];
-            }
-            else listDevice[(int)id-1] = (DbActivity.getNumberDevice()[(int)id-1]);
             viewHolder.itemView.setTag(id);
             Log.d("NumberDev","NumberDev "+DbActivity.getNumberDevice()[(int)id-1]);
             editAxis(viewHolder, DbActivity.getT17());
         }
         else if(id == 18){
             //ID ячейки view!!!!!!!!!
-            if (listDevice[(int)id-1]==null) {
                 listDevice[(int)id-1] = DbActivity.getNumberDevice()[(int)id-1];
-            }
-            else listDevice[(int)id-1] = (DbActivity.getNumberDevice()[(int)id-1]);
             viewHolder.itemView.setTag(id);
             Log.d("NumberDev","NumberDev "+DbActivity.getNumberDevice()[(int)id-1]);
             editAxis(viewHolder, DbActivity.getT18());
         }
         else if(id == 19){
             //ID ячейки view!!!!!!!!!
-            if (listDevice[(int)id-1]==null) {
                 listDevice[(int)id-1] = DbActivity.getNumberDevice()[(int)id-1];
-            }
-            else listDevice[(int)id-1] = (DbActivity.getNumberDevice()[(int)id-1]);
             viewHolder.itemView.setTag(id);
             Log.d("NumberDev","NumberDev "+DbActivity.getNumberDevice()[(int)id-1]);
             editAxis(viewHolder, DbActivity.getT19());
         }
         else if(id == 20){
             //ID ячейки view!!!!!!!!!
-            if (listDevice[(int)id-1]==null) {
                 listDevice[(int)id-1] = DbActivity.getNumberDevice()[(int)id-1];
-            }
-            else listDevice[(int)id-1] = (DbActivity.getNumberDevice()[(int)id-1]);
             viewHolder.itemView.setTag(id);
             Log.d("NumberDev","NumberDev "+DbActivity.getNumberDevice()[(int)id-1]);
             editAxis(viewHolder, DbActivity.getT20());
         }
-
 
 
 

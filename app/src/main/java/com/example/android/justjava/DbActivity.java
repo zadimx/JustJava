@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -194,7 +195,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
 
     private static int countDevice=0;
 
-    private static HashMap<String, String[]> arrayAxisTemp = new HashMap<>();
+    private static HashMap<String, String[]> arrayAxisTemp = null;
 
 
     public static String[] getT1() {
@@ -282,6 +283,14 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mServer = new DbActivity();
+        thread1.start();
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.db_activity_main);
 
         intent = new Intent(this, CreateNoteActivity.class);
@@ -291,7 +300,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         swipeRefreshLayout.setOnRefreshListener(onRefreshListener);
 
 
-        mServer = new DbActivity();
+
         RecyclerView recyclerView = findViewById(R.id.notes_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(notesAdapter);
@@ -306,7 +315,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
         v.setBackgroundColor(Color.GREEN);
 
 
-        thread1.start();
+
                 getLoaderManager().initLoader(
                         0, // Идентификатор загрузчика
                         null, // Аргументы
@@ -351,6 +360,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     protected void onDestroy() {
         super.onDestroy();
         flagDestroyed = true;
+        arrayAxisTemp = null;
         mServer.closeConnection();
         LoginActivity.setString("");
         thread1.interrupt();
@@ -1318,16 +1328,15 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
     private final NotesAdapter.OnNoteClickListener onNoteClickListener = new NotesAdapter.OnNoteClickListener() {
         @Override
         public void onNoteClick(final long noteId) {
-            flagDestroyed = true;
-            mServer.closeConnection();
-            Intent intent = new Intent(DbActivity.this, TableLogActivity.class);
+                flagDestroyed = true;
+                mServer.closeConnection();
+                Intent intent = new Intent(DbActivity.this, TableLogActivity.class);
 
+                String[] strings = NotesAdapter.getListDevice()[(int)noteId-1].split("t",2);
+                Log.d("wwwww", "wwwww "+noteId+" "+strings[0]);
 
-            String[] strings = NotesAdapter.getListDevice()[(int)noteId-1].split("t",2);
-            Log.d("wwwww", "wwwww"+noteId+" "+strings[0]);
-
-            intent.putExtra("numDevLog", Integer.parseInt(strings[0]));
-            startActivity(intent);
+                intent.putExtra("numDevLog", strings[0]);
+                startActivity(intent);
         }
     };
 
@@ -1457,7 +1466,7 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("STATEDBAC", "STATEDBACsad   "+flagDestroyed);
+                    Log.d("STATEDBAC", "STATEDBACsad   "+notesAdapter.getItemCount());
                     if (flagDestroyed) {
                         try {
                             flagDestroyed=false;
@@ -1481,7 +1490,13 @@ public class DbActivity extends AppCompatActivity implements LoaderManager.Loade
                     }
                 }
             }).start();
-                swipeRefreshLayout.setRefreshing(false);
+            new Handler().postDelayed(new Runnable() {
+                @Override public void run() {
+                    notesAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }, 500);
+
 
         }
 

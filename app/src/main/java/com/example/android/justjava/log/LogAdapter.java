@@ -39,6 +39,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
             holder.itemView.setTag((long) position);
+        Log.d("9999", "#89999 "+position);
             holder.axisLog1.setText(TableLogActivity.getArrayAxisTemp1().get("axis1").get(position));
             holder.axisLog2.setText(TableLogActivity.getArrayAxisTemp1().get("axis2").get(position));
             holder.axisLog3.setText(TableLogActivity.getArrayAxisTemp1().get("axis3").get(position));
@@ -50,11 +51,12 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
+        if (TableLogActivity.getArrayAxisTemp1() != null) {
+            if (TableLogActivity.getArrayAxisTemp1().size() == 7) {
+                Log.d("#444555", "#444555 " + TableLogActivity.getArrayAxisTemp1().get("time").size());
+                return TableLogActivity.getArrayAxisTemp1().get("time").size();
 
-        if (TableLogActivity.getArrayAxisTemp1().size() == 7) {
-            Log.d("#444555", "#444555 "+TableLogActivity.getArrayAxisTemp1().get("time").size());
-            return TableLogActivity.getArrayAxisTemp1().get("time").size();
-
+            } else return 0;
         }
         else return 0;
     }
