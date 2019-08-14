@@ -96,6 +96,8 @@ public class TableLogActivity extends AppCompatActivity {
 //                        if (date == System.currentTimeMillis()) {
                             try {
                                 try {
+                                    lat.clear();
+                                    lon.clear();
                                     if (Integer.parseInt(getIntent().getStringExtra("numDevLog"))==1) {
                                         mServer.sendData((getIntent().getStringExtra("numDevLog")+"t").getBytes());
                                     }
@@ -173,6 +175,8 @@ public class TableLogActivity extends AppCompatActivity {
 //            }
         });
     }
+
+
 
 
     @Override
@@ -290,7 +294,7 @@ public class TableLogActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
+        finish();
     }
 
     private final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
